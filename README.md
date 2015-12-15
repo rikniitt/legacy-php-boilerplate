@@ -14,3 +14,11 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
  * [Phing](http://www.phing.info/trac/wiki/Users/Documentation) as task runner.
  * [PHPUnit](https://phpunit.de/manual/current/en/phpunit-book.html) as test suite.
  * [CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) for checkng coding style.
+
+
+ ## Install
+
+  * You will need PHP, Apache and MySql.
+  * Download composer.phar with `curl -sS https://getcomposer.org/installer | php`.
+  * Install dependencies `php composer.phar install`.
+  * Publish assets with `./phing assets-publish`.
