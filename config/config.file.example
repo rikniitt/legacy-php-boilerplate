@@ -1,0 +1,8 @@
+TIMEZONE='UTC'
+LOG_NAME='app'
+LOG_LEVEL='INFO'                       # Allowed "DEBUG", "INFO", "WARNING", "ERROR"
+DEBUG=false
+DB_HOST='localhost'
+DB_NAME='my_web_application'
+DB_USER='username'
+DB_PASS='password'

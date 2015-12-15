@@ -21,4 +21,4 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
   * You will need PHP, Apache and MySql.
   * Download composer.phar with `curl -sS https://getcomposer.org/installer | php`.
   * Install dependencies `php composer.phar install`.
-  * Publish assets with `./phing assets-publish`.
+  * Install project `./phing install`.

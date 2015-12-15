@@ -1,0 +1,15 @@
+{% extends "layouts/master.twig" %}
+
+{% block title %}Error{% endblock %}
+
+
+{% block content %}
+    <div class="row error-container">
+        <div class="md-4">
+            <h4>Error</h4>
+        </div>
+        <div class="md-8 well">
+            <strong>{{ code }}: </strong>{{ message }}
+        </div>
+    </div>
+{% endblock %}

@@ -19,7 +19,7 @@
     <target name="assets-publish" description="Publish assets installed via composer.">
 
         <echo msg="Cleaning up ${publicdir}/assets/vendor directory." />
-        <delete dir="${publicdir}/assets/vendor" includeemptydirs="true" />
+        <delete dir="${publicdir}/assets/vendor" includeemptydirs="true" quiet="true" />
         <mkdir dir="${publicdir}/assets/vendor" />
 
         <echo msg="Publishing twitter bootstrap." />
@@ -66,6 +66,8 @@
         </zip>
     </target>
 
+    <target name="install" depends="create-local-config, assets-publish" description="Install project." />
+
     <target name="lint" description="Perform syntax check of sourcecode files with php lint.">
         <phplint haltonfailure="true" deprecatedAsError="true">
             <fileset dir="${srcdir}">
@@ -75,6 +77,13 @@
                 <include name="**/*.php"/>
             </fileset>
         </phplint>
+    </target>
+
+    <target name="migration-create" description="Create new empty migration file.">
+        <tstamp>
+            <format property="DATETIME" pattern="%Y%m%d_%H%M%S" />
+        </tstamp>
+        <touch file="${absolutebasedir}/config/migrations/${DATETIME}_give_meaningful_name_for_me.sql" />
     </target>
 
     <target name="test" description="Run all unit tests with PHPUnit.">
@@ -95,6 +104,10 @@
     <target name="clean">
         <delete dir="${reportsdir}" includeemptydirs="true" quiet="true" />
         <delete dir="${builddir}" includeemptydirs="true" quiet="true" />
+    </target>
+
+    <target name="create-local-config">
+        <copy file="${absolutebasedir}/config/config.file.example" tofile="${absolutebasedir}/config/config.file" />
     </target>
 
     <target name="prepare" depends="clean">
