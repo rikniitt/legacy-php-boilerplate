@@ -30,7 +30,7 @@ $app = new Web\Application($settings);
 $logfile = date('Ymd') . '_' . $settings['LOG_NAME'] . '.log';
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => LOG_DIR . '/' . $logfile,
-    'monolog.permission' => $settings['LOG_LEVEL'],
+    'monolog.level' => $settings['LOG_LEVEL'],
     'monolog.name' => $settings['LOG_NAME']
 ));
 
