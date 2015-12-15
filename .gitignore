@@ -1,10 +1,19 @@
-*~
+### Lock files
 *.lock
-*.log
+*.bak
+*~
+[#]*[#]
+### OSX
+*.DS_Store
+### Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
 
+### Project
+logs/*.log
 vendor/
 composer.phar
-
 public/assets/vendor/
-
 node_modules/

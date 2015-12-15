@@ -16,7 +16,7 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
  * [CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) for checkng coding style.
 
 
- ## Install
+## Install
 
   * You will need PHP, Apache and MySql.
   * Download composer.phar with `curl -sS https://getcomposer.org/installer | php`.
