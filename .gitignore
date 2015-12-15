@@ -1,0 +1,8 @@
+*~
+*.lock
+*.log
+
+vendor/
+composer.phar
+
+node_modules/
