@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="your-fresh-wep-app" default="build">
+
+    <property name="basedir"  value="." override="true" />
+    <resolvepath propertyName="absolutebasedir" file="${basedir}" />
+
+    <property name="vendorbin" value="${absolutebasedir}/vendor/bin" />
+    <property name="srcdir" value="${absolutebasedir}/src" />
+    <property name="testsdir" value="${absolutebasedir}/tests" />
+    <property name="builddir" value="${absolutebasedir}/build" />
+    <property name="publicdir" value="${absolutebasedir}/public" />
+
+    <!-- Default target: -->
+    <target name="build" description="Build project.">
+        <echo msg="Hey there. No one has not setup any build magic ... :(" />
+    </target>
+
+    <!-- Main targets: -->
+    <target name="assets-publish" description="Publish assets installed via composer.">
+
+        <echo msg="Cleaning up ${publicdir}/assets/vendor directory." />
+        <delete dir="${publicdir}/assets/vendor" includeemptydirs="true" />
+        <mkdir dir="${publicdir}/assets/vendor" />
+
+        <echo msg="Publishing twitter bootstrap." />
+        <mkdir dir="${publicdir}/assets/vendor/bootstrap" />
+        <copy todir="${publicdir}/assets/vendor/bootstrap/css">
+            <fileset dir="${absolutebasedir}/vendor/twbs/bootstrap/dist/css" />
+        </copy>
+        <copy todir="${publicdir}/assets/vendor/bootstrap/fonts">
+            <fileset dir="${absolutebasedir}/vendor/twbs/bootstrap/dist/fonts" />
+        </copy>
+        <copy todir="${publicdir}/assets/vendor/bootstrap/js">
+            <fileset dir="${absolutebasedir}/vendor/twbs/bootstrap/dist/js" />
+        </copy>
+    </target>
+
+    <target name="check-style" description="Find coding standard violations using PHP CodeSniffer.">
+        <phpcodesniffer
+            standard="${absolutebasedir}/phpcs.xml"
+            format="full"
+            showSniffs="true"
+            haltonerror="true">
+            <fileset dir="${srcdir}">
+                <include name="**/*.php"/>
+            </fileset>
+            <fileset dir="${testsdir}">
+                <include name="**/*.php"/>
+            </fileset>
+        </phpcodesniffer>
+    </target>
+
+    <target name="compress" description="Compress source files to zip archive.">
+        <echo msg="Compressing project to zip archive." />
+        <echo msg="This takes a while..." />
+
+        <property name="buildpackage"  value="${builddir}/${phing.project.name}_build.zip" />
+
+        <zip destfile="${buildpackage}">
+            <fileset dir=".">
+                <include name="application/**/**" />
+                <include name="htdocs/**/**" />
+                <include name="system/**/**" />
+                <include name="vendor/**/**" />
+            </fileset>
+        </zip>
+    </target>
+
+    <target name="lint" description="Perform syntax check of sourcecode files with php lint.">
+        <phplint haltonfailure="true" deprecatedAsError="true">
+            <fileset dir="${srcdir}">
+                <include name="**/*.php"/>
+            </fileset>
+            <fileset dir="${testsdir}">
+                <include name="**/*.php"/>
+            </fileset>
+        </phplint>
+    </target>
+
+    <target name="test" description="Run all unit tests with PHPUnit.">
+        <phpunit
+            haltonfailure="true"
+            haltonerror="true"
+            bootstrap="${testsdir}/support/phpunit_bootstrap.php">
+            <formatter type="plain" usefile="false"/>
+            <batchtest>
+                <fileset dir="${testsdir}/unit">
+                    <include name="**/*Test*.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
+
+    <!-- Subtargets: -->
+    <target name="clean">
+        <delete dir="${reportsdir}" includeemptydirs="true" quiet="true" />
+        <delete dir="${builddir}" includeemptydirs="true" quiet="true" />
+    </target>
+
+    <target name="prepare" depends="clean">
+        <mkdir dir="${builddir}" />
+        <mkdir dir="${reportsdir}" />
+    </target>
+
+</project>
