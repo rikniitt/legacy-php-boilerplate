@@ -4,7 +4,7 @@ namespace Web;
 
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class Controller 
+abstract class Controller
 {
     protected $app;
 
@@ -20,4 +20,5 @@ abstract class Controller
         $template = $this->app['twig']->render($view, $data);
         return new Response($template, $this->statusCode);
     }
+
 }

@@ -25,14 +25,14 @@ class Todo extends Model
 
     /**
      * @var name
-     * 
+     *
      * @ORM\Column(type="string", length=50)
      */
     private $name;
 
     /**
      * @var content
-     * 
+     *
      * @ORM\Column(type="text")
      */
     private $content;

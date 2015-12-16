@@ -21,15 +21,14 @@ class Application extends SilexApplication
         $this->registerServices();
     }
 
-
     private function registerServices()
     {
         $app = $this;
 
-        $app['todos.repository'] = $app->share(function() use ($app) {
+        $app['todos.repository'] = $app->share(function () use ($app) {
             return new Database\Repository\Todo($app);
         });
-        $app['todo.controller'] = $app->share(function() use ($app) {
+        $app['todo.controller'] = $app->share(function () use ($app) {
             return new Controller\Todo($app, $app['todos.repository']);
         });
     }

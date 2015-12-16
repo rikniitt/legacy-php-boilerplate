@@ -50,7 +50,7 @@
         </phpcodesniffer>
     </target>
 
-    <target name="compress" description="Compress source files to zip archive.">
+    <target name="compress" description="Compress source files to zip archive." depends="prepare">
         <echo msg="Compressing project to zip archive." />
         <echo msg="This takes a while..." />
 
@@ -58,10 +58,14 @@
 
         <zip destfile="${buildpackage}">
             <fileset dir=".">
-                <include name="application/**/**" />
-                <include name="htdocs/**/**" />
-                <include name="system/**/**" />
+                <include name="config/**/**" />
+                <include name="config/config.file" />
+                <include name="logs/**/**" />
+                <exclude name="**/*.log"/>
+                <include name="public/**/**" />
+                <include name="src/**/**" />
                 <include name="vendor/**/**" />
+                <include name="views/**/**" />
             </fileset>
         </zip>
     </target>
@@ -102,7 +106,6 @@
 
     <!-- Subtargets: -->
     <target name="clean">
-        <delete dir="${reportsdir}" includeemptydirs="true" quiet="true" />
         <delete dir="${builddir}" includeemptydirs="true" quiet="true" />
     </target>
 
@@ -112,7 +115,6 @@
 
     <target name="prepare" depends="clean">
         <mkdir dir="${builddir}" />
-        <mkdir dir="${reportsdir}" />
     </target>
 
 </project>
