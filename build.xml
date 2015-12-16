@@ -90,10 +90,10 @@
         <phpunit
             haltonfailure="true"
             haltonerror="true"
-            bootstrap="${testsdir}/support/phpunit_bootstrap.php">
+            configuration="${absolutebasedir}/phpunit.xml">
             <formatter type="plain" usefile="false"/>
             <batchtest>
-                <fileset dir="${testsdir}/unit">
+                <fileset dir="${testsdir}/Unit">
                     <include name="**/*Test*.php"/>
                 </fileset>
             </batchtest>
