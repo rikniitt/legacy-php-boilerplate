@@ -17,6 +17,21 @@ class Application extends SilexApplication
 
         // Are we runnign application in DEBUG mode?
         $this['debug'] = $settings['DEBUG'];
+
+        $this->registerServices();
+    }
+
+
+    private function registerServices()
+    {
+        $app = $this;
+
+        $app['todos.repository'] = $app->share(function() use ($app) {
+            return new Database\Repository\Todo($app);
+        });
+        $app['todo.controller'] = $app->share(function() use ($app) {
+            return new Controller\Todo($app, $app['todos.repository']);
+        });
     }
 
     public function renderError(\Exception $e, $code)
