@@ -18,3 +18,4 @@ composer.phar
 public/assets/vendor/
 node_modules/
 config/config.file
+build/
