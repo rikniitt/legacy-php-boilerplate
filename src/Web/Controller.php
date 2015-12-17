@@ -15,7 +15,7 @@ abstract class Controller
         $this->app = $app;
     }
 
-    protected function render($view, $data)
+    protected function render($view, $data = array())
     {
         $template = $this->app['twig']->render($view, $data);
         return new Response($template, $this->statusCode);

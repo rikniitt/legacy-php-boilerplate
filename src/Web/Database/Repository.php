@@ -24,4 +24,16 @@ abstract class Repository extends EntityRepository
         parent::__construct($entityManager, $clazz);
     }
 
+    public function save($entity)
+    {
+        $this->app[$this->entityManager]->persist($entity);
+        $this->app[$this->entityManager]->flush();
+    }
+
+    public function update($entity)
+    {
+        $this->app[$this->entityManager]->merge($entity);
+        $this->app[$this->entityManager]->flush();
+    }
+
 }

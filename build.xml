@@ -10,6 +10,9 @@
     <property name="builddir" value="${absolutebasedir}/build" />
     <property name="publicdir" value="${absolutebasedir}/public" />
 
+    <!-- Load config file -->
+    <property file="${absolutebasedir}/config/config.file" />
+
     <!-- Default target: -->
     <target name="build" description="Build project.">
         <echo msg="Hey there. No one has not setup any build magic ... :(" />
@@ -59,7 +62,7 @@
         <zip destfile="${buildpackage}">
             <fileset dir=".">
                 <include name="config/**/**" />
-                <include name="config/config.file" />
+                <excluce name="config/config.file" />
                 <include name="logs/**/**" />
                 <exclude name="**/*.log"/>
                 <include name="public/**/**" />
@@ -84,10 +87,25 @@
     </target>
 
     <target name="migration-create" description="Create new empty migration file.">
+        <propertyprompt propertyName="migrationname" defaultValue="give_a_meaningful_name_in_snake_case" promptText="Enter name for the migration" />
         <tstamp>
             <format property="DATETIME" pattern="%Y%m%d_%H%M%S" />
         </tstamp>
-        <touch file="${absolutebasedir}/config/migrations/${DATETIME}_give_meaningful_name_for_me.sql" />
+        <touch file="${absolutebasedir}/config/migrations/${DATETIME}_${migrationname}.sql" />
+    </target>
+
+    <target name="migration-run-all" description="Run every migration.">
+        <apply executable="mysql" parallel="false" passthru="true" checkreturn="false">
+            <arg line="-h${DB_HOST}" />
+            <arg line="-u${DB_USER}" />
+            <arg line="-p${DB_PASS}" />
+            <arg line="${DB_NAME}" />
+            <arg value="&lt;" />
+            <srcfile />
+            <fileset dir="${absolutebasedir}/config/migrations">
+                <include name="*.sql" />
+            </fileset>
+        </apply>
     </target>
 
     <target name="test" description="Run all unit tests with PHPUnit.">

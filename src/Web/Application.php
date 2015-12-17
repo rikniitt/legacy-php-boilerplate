@@ -53,4 +53,9 @@ class Application extends SilexApplication
         return new Response($template);
     }
 
+    public function getSetting($key)
+    {
+        return (isset($this->settings[$key])) ? $this->settings[$key] : null;
+    }
+
 }
