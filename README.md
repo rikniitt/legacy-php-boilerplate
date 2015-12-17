@@ -1,4 +1,4 @@
-# Legacy PHP Web application boilerplate
+# Legacy PHP web application boilerplate
 
 PHP web application boilerplate designed to work with PHP version >= 5.3.3.
 It utilizes following [composer](https://getcomposer.org/doc/) [packages](https://packagist.org/):
