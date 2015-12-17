@@ -9,6 +9,7 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
  * [Twig](http://twig.sensiolabs.org/documentation) as template engine.
  * [Monolog](https://github.com/Seldaek/monolog) for logging.
  * [PHP Dotenv](https://github.com/josegonzalez/php-dotenv) for loading config files.
+ * [Twitter Bootstrap](http://getbootstrap.com/css/) frontend framework.
 
 #### Development dependencies
  * [Phing](http://www.phing.info/trac/wiki/Users/Documentation) as task runner.
@@ -52,3 +53,8 @@ or `./vendor/bin/phpunit`.
 
   * `./app_console` run PHP REPL with your application bootstrapped. Access your application via $app variable.
   * `./mysql_console` open mysql console.
+
+## Frontend dependencies
+
+Frontend dependencies can 'published' with `./phing assets-publish`. This will copy bootstrap from *vendor*-dir to
+*public/assets/vendor*-directory. 

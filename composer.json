@@ -9,7 +9,8 @@
         "twig/twig": "1.23.1",
         "monolog/monolog": "1.17.2",
         "josegonzalez/dotenv": "1.0.3",
-        "twbs/bootstrap": "3.3.6"
+        "twbs/bootstrap": "3.3.6",
+        "components/jquery": "2.1.4"
     },
     "require-dev": {
         "phing/phing": "2.13.0",

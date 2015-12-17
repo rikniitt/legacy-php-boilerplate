@@ -25,6 +25,13 @@
         <delete dir="${publicdir}/assets/vendor" includeemptydirs="true" quiet="true" />
         <mkdir dir="${publicdir}/assets/vendor" />
 
+        <echo msg="Publishing twitter jquery." />
+
+        <mkdir dir="${publicdir}/assets/vendor/jquery" />
+        <copy todir="${publicdir}/assets/vendor/jquery/js">
+            <fileset dir="${absolutebasedir}/vendor/components/jquery" />
+        </copy>
+
         <echo msg="Publishing twitter bootstrap." />
         <mkdir dir="${publicdir}/assets/vendor/bootstrap" />
         <copy todir="${publicdir}/assets/vendor/bootstrap/css">
@@ -36,6 +43,7 @@
         <copy todir="${publicdir}/assets/vendor/bootstrap/js">
             <fileset dir="${absolutebasedir}/vendor/twbs/bootstrap/dist/js" />
         </copy>
+
     </target>
 
     <target name="check-style" description="Find coding standard violations using PHP CodeSniffer.">
