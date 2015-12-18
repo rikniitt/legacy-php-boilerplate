@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+source ./config/config.file
+
+
+if [ ! -z "$1" ]; then
+    PHP_PORT=$1
+elif [ -z "$PHP_PORT" ]; then
+    PHP_PORT=8000
+fi
+
+
+trap 'kill_php_server' SIGINT
+function kill_php_server() {
+    ps aux | grep "[p]hp -S localhost:$PHP_PORT -t ./public/" | awk '{print $2}' | xargs -r kill -9
+}
+
+touch ./logs/$( date +'%Y%m%d' )_$LOG_NAME.log
+{ php -S localhost:$PHP_PORT -t ./public/ & tail -f ./logs/$( date +'%Y%m%d' )_$LOG_NAME.log; }

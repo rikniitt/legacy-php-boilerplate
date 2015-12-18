@@ -2,5 +2,3 @@
 
 source ./config/config.file
 mysql -h$DB_HOST -u$DB_USER -p$DB_PASS $DB_NAME
-
-

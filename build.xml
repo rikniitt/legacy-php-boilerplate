@@ -15,7 +15,7 @@
 
     <!-- Default target: -->
     <target name="build" description="Build project.">
-        <echo msg="Hey there. No one has not setup any build magic ... :(" />
+        <echo msg="Hey there. No one has not setup any build magic ... :(" level="error" />
     </target>
 
     <!-- Main targets: -->
