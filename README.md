@@ -52,7 +52,7 @@ or `./vendor/bin/phpunit`.
 ## Helper scripts
 
   * `./app_console` run PHP REPL with your application bootstrapped. Access your application via $app variable.
-  * `./mysql_console` open mysql console.
+  * `./db_console` open mysql console.
   * `./serve [port_number=8000]` start development server (requires php>=5.4.0).
 
 ## Frontend dependencies
