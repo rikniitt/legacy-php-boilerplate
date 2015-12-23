@@ -11,7 +11,7 @@
 define('ROOT_DIR', realpath(__DIR__ . '/../'));
 define('VIEW_DIR', ROOT_DIR . '/views');
 define('LOG_DIR', ROOT_DIR . '/logs');
-define('MODEL_DIR', ROOT_DIR . '/src/Web/Database/Model');
+define('MODEL_DIR', ROOT_DIR . '/src/Legacy/Database/Model');
 
 // Require composer dependencies.
 $composerLoader = require ROOT_DIR . '/vendor/autoload.php';
@@ -53,7 +53,7 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
         "mappings" => array(
             array(
                 "type" => "annotation",
-                "namespace" => "Web\Database\Model",
+                "namespace" => "Legacy\Database\Model",
                 "path" => MODEL_DIR,
                 "use_simple_annotation_reader" => false // using @ORM\Entity instead of plain @Entity
             )
