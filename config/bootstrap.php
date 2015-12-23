@@ -47,6 +47,8 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'charset' => 'utf8'
     )
 ));
+// Bind custom logger to Doctrine DBAL.
+$app['db.config']->setSQLLogger(new Legacy\Database\Doctrine\SqlLogger($app['monolog']));
 // Register doctrine orm.
 $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), array(
     "orm.em.options" => array(
