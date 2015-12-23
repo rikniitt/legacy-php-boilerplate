@@ -1,9 +1,8 @@
 <?php
 
-namespace Web\Middleware;
+namespace Legacy\Middleware;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class JSONRequest
 {

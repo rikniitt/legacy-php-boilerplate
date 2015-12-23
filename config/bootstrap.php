@@ -25,7 +25,7 @@ date_default_timezone_set($settings['TIMEZONE']);
 
 
 // Create silex application.
-$app = new Web\Application($settings);
+$app = new Legacy\Application($settings);
 
 // Create logger.
 $logfile = date('Ymd') . '_' . $settings['LOG_NAME'] . '.log';

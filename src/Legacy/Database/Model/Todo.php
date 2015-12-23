@@ -1,8 +1,8 @@
 <?php
 
-namespace Web\Database\Model;
+namespace Legacy\Database\Model;
 
-use Web\Database\Model;
+use Legacy\Database\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 /**

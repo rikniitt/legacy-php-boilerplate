@@ -1,6 +1,6 @@
 <?php
 
-namespace Web;
+namespace Legacy;
 
 use Symfony\Component\HttpFoundation\Response;
 

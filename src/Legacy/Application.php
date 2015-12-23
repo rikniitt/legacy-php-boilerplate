@@ -1,6 +1,6 @@
 <?php
 
-namespace Web;
+namespace Legacy;
 
 use Silex\Application as SilexApplication;
 use Symfony\Component\HttpFoundation\Response;

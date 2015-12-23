@@ -1,10 +1,10 @@
 <?php
 
-namespace Web\Controller;
+namespace Legacy\Controller;
 
-use Web\Controller;
-use Web\Application;
-use Web\Database\Repository;
+use Legacy\Controller;
+use Legacy\Application;
+use Legacy\Database\Repository;
 
 class Todo extends Controller
 {

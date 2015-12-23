@@ -1,6 +1,6 @@
 <?php
 
-namespace Web\Database;
+namespace Legacy\Database;
 
 abstract class Model
 {

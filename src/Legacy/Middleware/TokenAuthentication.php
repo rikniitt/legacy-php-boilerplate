@@ -1,10 +1,9 @@
 <?php
 
-namespace Web\Middleware;
+namespace Legacy\Middleware;
 
-use Web\Application;
+use Legacy\Application;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class TokenAuthentication
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Web\Database;
+namespace Legacy\Database;
 
-use Web\Application;
+use Legacy\Application;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 abstract class Repository extends EntityRepository
 {
     // Which model/entity.
-    protected $modelName = 'Web\Database\Model\NotDefined';
+    protected $modelName = 'Legacy\Database\Model\NotDefined';
 
     // Which connection.
     protected $entityManager = 'orm.em';

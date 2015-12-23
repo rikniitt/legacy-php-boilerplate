@@ -1,9 +1,9 @@
 <?php
 
-namespace Test\Unit\Web\Database\Model;
+namespace Test\Unit\Legacy\Database\Model;
 
 use Test\Support\UnitTestCase;
-use Web\Database\Model\Todo;
+use Legacy\Database\Model\Todo;
 
 class TodoTest extends UnitTestCase
 {
@@ -11,7 +11,7 @@ class TodoTest extends UnitTestCase
     public function testInheritsModel()
     {
         $todo = new Todo();
-        $this->assertInstanceOf('Web\Database\Model', $todo);
+        $this->assertInstanceOf('Legacy\Database\Model', $todo);
     }
 
     public function testMagicHappens()

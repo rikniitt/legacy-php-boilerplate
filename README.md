@@ -30,7 +30,7 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
 
 Local settings are stored in *config/config.file*. This file is created by 
 `./phing install`. Setup your local database credentials and other project 
-settings. They can be accessed via Web\Application instance method getSetting($key).
+settings. They can be accessed via Legacy\Application instance method getSetting($key).
 These settings are also used by phing build.xml and helper scripts.
 
 
