@@ -65,7 +65,10 @@
         <echo msg="Compressing project to zip archive." />
         <echo msg="This takes a while..." />
 
-        <property name="buildpackage"  value="${builddir}/${phing.project.name}_build.zip" />
+        <tstamp>
+            <format property="DATETIME" pattern="%Y%m%d_%H%M%S" />
+        </tstamp>
+        <property name="buildpackage"  value="${builddir}/${DATETIME}_${phing.project.name}_build.zip" />
 
         <zip destfile="${buildpackage}">
             <fileset dir=".">
