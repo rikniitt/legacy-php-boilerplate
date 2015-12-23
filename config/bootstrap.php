@@ -69,6 +69,9 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 // Register silex controller provider
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
+// Register silex session provider
+$app->register(new Silex\Provider\SessionServiceProvider());
+
 // Generic error routine.
 $app->error(function (\Exception $e, $code) use ($app) {
     return $app->renderError($e, $code);
