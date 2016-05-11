@@ -4,7 +4,7 @@ namespace Legacy\Middleware;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class TokenAuthentication
+class Session
 {
 
     public function before(Request $request)
