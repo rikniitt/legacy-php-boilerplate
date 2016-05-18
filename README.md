@@ -14,7 +14,7 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
 #### Development dependencies
  * [Phing](http://www.phing.info/trac/wiki/Users/Documentation) as task runner.
  * [PHPUnit](https://phpunit.de/manual/current/en/phpunit-book.html) as test suite.
- * [CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) for checkng coding style.
+ * [CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) for checking coding style.
  * [PsySH](https://github.com/bobthecow/psysh) as PHP REPL.
  * [Whoops](https://github.com/filp/whoops/blob/master/docs/API%20Documentation.md) for displaying pretty errors.
 
