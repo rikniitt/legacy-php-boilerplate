@@ -17,7 +17,7 @@ $app->before(array($jsonMiddleware, 'before'));
 //    return '<h1>Company wide announcementz here!</h1>';
 //})->before(array($ipWhitelistMiddleware, 'before'));
 
-//$basicAuthMiddleware = new Legacy\Middleware\HTTPBasicAuthentication();
+//$basicAuthMiddleware = new Legacy\Middleware\HttpBasicAuthentication();
 //$app->get('/admin', function () {
 //    return '<h1>Administrator area!</h1>';
 //})->before(array($basicAuthMiddleware, 'before'));

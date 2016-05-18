@@ -6,7 +6,7 @@ use Legacy\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class HTTPBasicAuthentication
+class HttpBasicAuthentication
 {
     /**
      * Authorized users array
