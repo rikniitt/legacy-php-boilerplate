@@ -78,9 +78,10 @@
         <zip destfile="${buildpackage}">
             <fileset dir=".">
                 <include name="config/**/**" />
-                <excluce name="config/config.file" />
+                <exclude name="config/config.file" />
                 <include name="logs/**/**" />
                 <exclude name="**/*.log"/>
+                <exclude name="**/*.zip"/>
                 <include name="public/**/**" />
                 <include name="src/**/**" />
                 <include name="vendor/**/**" />

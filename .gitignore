@@ -13,6 +13,7 @@ Desktop.ini
 
 ### Project
 logs/*.log
+logs/*.zip
 vendor/
 composer.phar
 public/assets/vendor/
