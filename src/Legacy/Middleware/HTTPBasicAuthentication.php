@@ -27,10 +27,10 @@ class HTTPBasicAuthentication
 
     public function before(Request $request, Application $app)
     {
-        $user = $request->headers->get('PHP_AUTH_USER') ? : null;
-        $pass = $request->headers->get('PHP_AUTH_PW') ? : null;
+        $username = $request->headers->get('PHP_AUTH_USER') ? : null;
+        $password = $request->headers->get('PHP_AUTH_PW') ? : null;
         
-        if (!$this->verify($user, $pass)) {
+        if (!$this->verify($username, $password)) {
             $response = new Response();
             $response->setStatusCode(401)
                      ->setContent('Not authorized!')
@@ -40,15 +40,15 @@ class HTTPBasicAuthentication
 
     }
 
-    private function verify($user, $password)
+    private function verify($username, $password)
     {
         $users = $this->authorizedUsers;
 
-        return (bool) ($user
+        return (bool) ($username
                        && $password
                        && is_array($users)
-                       && array_key_exists($user, $users)
-                       && $users[$user] === static::hashPassword($password, $users[$user]));
+                       && array_key_exists($username, $users)
+                       && $users[$username] === static::hashPassword($password, $users[$username]));
     }
 
     public static function hashPassword($password, $hash = false)
