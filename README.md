@@ -54,6 +54,7 @@ or `./vendor/bin/phpunit`.
   * `./app_console` run PHP REPL with your application bootstrapped. Access your application via $app variable.
   * `./db_console` open mysql console.
   * `./serve [port_number=8000]` start development server (requires php>=5.4.0).
+  * `./phing -p` list Phing build targets.
 
 ## Frontend dependencies
 
