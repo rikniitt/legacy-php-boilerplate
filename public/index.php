@@ -12,5 +12,10 @@ $app->before(array($jsonMiddleware, 'before'));
 //$sessionMiddleware = new Legacy\Middleware\Session();
 //$app->get('login', 'login_controller:login')->before(array($sessionMiddleware, 'before'));
 
+//$ipWhitelistMiddleware = new Legacy\Middleware\IPWhitelist();
+//$app->get('/intranetz', function() {
+//    return '<h1>Company wide announcementz here!</h1>';
+//})->before(array($ipWhitelistMiddleware, 'before'));
+
 $app->get('/', 'todo.controller:index');
 $app->run();

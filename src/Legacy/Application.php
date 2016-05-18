@@ -39,8 +39,6 @@ class Application extends SilexApplication
     
     public function render($view, $data = array())
     {
-        // Add request helper here instead of bootstrap, because
-        // app request is not available on bootstrap.
         $this['twig']->addGlobal('requestHelper', $this['requestHelper']);
 
         return $this['twig']->render($view, $data);
