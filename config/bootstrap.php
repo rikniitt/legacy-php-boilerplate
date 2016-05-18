@@ -68,6 +68,11 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => VIEW_DIR,
 ));
 
+// Register whoops debugging provider
+if ($settings['DEBUG']) {
+    $app->register(new Whoops\Provider\Silex\WhoopsServiceProvider);
+}
+
 // Register silex controller provider
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
