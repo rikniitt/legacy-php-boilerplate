@@ -19,7 +19,7 @@
     </target>
 
     <!-- Main targets: -->
-    <target name="archive-logs" description="Archives last months log files">
+    <target name="archive-logs" description="Archives all log files older than this month.">
         <!-- Uses custom adhoc task defined below. -->
         <log-archive dir="${absolutebasedir}/logs" />
     </target>
@@ -155,38 +155,47 @@
     <!-- Adhoc tasks: -->
     <adhoc-task name="log-archive"><![CDATA[
         class LogArchive extends Task {
-            private $dir;
-            private $month;
-
-            public function init() {
-                $this->dir = './logs';
-                $this->month = date('Ym', strtotime('last month'));
-            }
+            private $dir = './logs';
+            private $month = null;
 
             public function main() {
-                $zipFile = $this->dir . '/' . $this->month . '_archive.zip';
-                $this->log("Compressing logs from {$this->dir} and {$this->month} to $zipFile");
-
-                $logFiles = glob($this->dir . '/*' . $this->month . '*.log');
-
+                if ($this->month !== null) {
+                    $logFiles = glob($this->dir . '/*' . $this->month . '*.log');
+                    $this->zipFiles($this->month, $logFiles);
+                } else {
+                    $exclude = date('Ym');
+                    $months = array();
+                    foreach (glob($this->dir . '/*.log') as $f) {
+                        preg_match('/([0-9]{6})/', basename($f), $captured);
+                        if (count($captured) === 2 
+                            && $captured[1] !== $exclude
+                            && !in_array($captured[1], $months))
+                            $months[] = $captured[1];
+                    }
+                    foreach ($months as $m) {
+                        $logFiles = glob($this->dir . '/*' . $m . '*.log');
+                        $this->zipFiles($m, $logFiles);
+                    }
+                }
+            }
+        
+            private function zipFiles($month, $logFiles) {
+                $zipFile = $this->dir . '/' . $month . '_archive.zip';
+                $this->log("Compressing logs from {$this->dir} and $month to $zipFile");
                 if (count($logFiles) === 0) {
                     $this->log(" ... no log files found.");
                     return;
                 }
-        
                 $zip = new ZipArchive();
                 if (!$zip->open($zipFile, ZIPARCHIVE::CREATE)) {
                     $this->error("Can\'t create archive file $zipFile!");
                     return;
                 }
-
                 foreach ($logFiles as $f) {
                     $this->log("Adding file $f");
                     $zip->addFile($f, basename($f));
                 }
-
                 $zip->close();
-
                 foreach ($logFiles as $f) {
                     $this->log("Removing file $f");
                     unlink($f);
