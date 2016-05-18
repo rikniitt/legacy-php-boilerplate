@@ -57,5 +57,5 @@ or `./vendor/bin/phpunit`.
 
 ## Frontend dependencies
 
-Frontend dependencies can 'published' with `./phing assets-publish`. This will copy bootstrap from *vendor*-dir to
+Frontend dependencies can be 'published' with `./phing assets-publish`. This will copy bootstrap from *vendor*-dir to
 *public/assets/vendor*-directory. 

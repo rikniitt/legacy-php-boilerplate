@@ -19,6 +19,11 @@
     </target>
 
     <!-- Main targets: -->
+    <target name="archive-logs" description="Archives last months log files">
+        <!-- Uses custom adhoc task defined below. -->
+        <log-archive dir="${absolutebasedir}/logs" />
+    </target>
+    
     <target name="assets-publish" description="Publish assets installed via composer.">
 
         <echo msg="Cleaning up ${publicdir}/assets/vendor directory." />
@@ -145,5 +150,50 @@
     <target name="prepare" depends="clean">
         <mkdir dir="${builddir}" />
     </target>
+    
+    <!-- Adhoc tasks: -->
+    <adhoc-task name="log-archive"><![CDATA[
+        class LogArchive extends Task {
+            private $dir;
+            private $month;
 
+            public function init() {
+                $this->dir = './logs';
+                $this->month = date('Ym', strtotime('last month'));
+            }
+
+            public function main() {
+                $zipFile = $this->dir . '/' . $this->month . '_archive.zip';
+                $this->log("Compressing logs from {$this->dir} and {$this->month} to $zipFile");
+
+                $logFiles = glob($this->dir . '/*' . $this->month . '*.log');
+
+                if (count($logFiles) === 0) {
+                    $this->log(" ... no log files found.");
+                    return;
+                }
+        
+                $zip = new ZipArchive();
+                if (!$zip->open($zipFile, ZIPARCHIVE::CREATE)) {
+                    $this->error("Can\'t create archive file $zipFile!");
+                    return;
+                }
+
+                foreach ($logFiles as $f) {
+                    $this->log("Adding file $f");
+                    $zip->addFile($f, basename($f));
+                }
+
+                $zip->close();
+
+                foreach ($logFiles as $f) {
+                    $this->log("Removing file $f");
+                    unlink($f);
+                }
+            }
+
+            public function setDir($dir) { $this->dir = $dir; }
+            public function setMonth($month) { $this->month = $month; }
+        }
+    ]]></adhoc-task>
 </project>
