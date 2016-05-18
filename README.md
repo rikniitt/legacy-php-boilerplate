@@ -19,11 +19,7 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
  * [Whoops](https://github.com/filp/whoops/blob/master/docs/API%20Documentation.md) for displaying pretty errors.
 
 
-
-
-
 ## Install
-
   * You will need PHP, Apache and MySql.
   * Download composer.phar with `curl -sS https://getcomposer.org/installer | php`.
   * Install dependencies `php composer.phar install`.
@@ -59,6 +55,7 @@ or `./vendor/bin/phpunit`.
   * `./db_console` open mysql console.
   * `./serve [port_number=8000]` start development server (requires php>=5.4.0).
   * `./phing -p` list Phing build targets.
+
 
 ## Frontend dependencies
 
