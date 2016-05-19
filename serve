@@ -4,10 +4,10 @@ source ./config/config.file
 
 REQUIRED='5.4.0'
 INSTALLED=$(php -v | egrep -o -m1 '([0-9]{1,}\.[0-9]{1,}\.[0-9]{1,})')
-OLDER=$(echo $INSTALLED $REQUIRED | tr " " "\n" | sort -V | head -n 1)
+OLDER=$(echo -e "$INSTALLED\n$REQUIRED" | sort -V | head -n1)
 
 if [ "$REQUIRED" != "$INSTALLED" ] && [ "$OLDER" == "$INSTALLED" ]; then
- echo " PHP version $REQUIRED is required and $INSTALLED is currently installed"
+ echo " PHP version $REQUIRED is required and $INSTALLED is currently installed."
  exit 1
 fi
 
