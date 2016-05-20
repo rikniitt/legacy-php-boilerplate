@@ -5,7 +5,7 @@ namespace Legacy\Controller;
 use Legacy\Controller;
 use Legacy\Application;
 use Legacy\Database\Repository;
-use \Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class Todo extends Controller
 {
