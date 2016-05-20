@@ -3,6 +3,7 @@
 namespace Legacy\Database;
 
 use Legacy\Application;
+use Legacy\Database\Model;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
@@ -24,16 +25,18 @@ abstract class Repository extends EntityRepository
         parent::__construct($entityManager, $clazz);
     }
 
-    public function save($entity)
+    public function save(Model $entity)
     {
-        $this->app[$this->entityManager]->persist($entity);
-        $this->app[$this->entityManager]->flush();
+        return ($entity->isValid()
+                && $this->app[$this->entityManager]->persist($entity)
+                && $this->app[$this->entityManager]->flush());
     }
 
-    public function update($entity)
+    public function update(Model $entity)
     {
-        $this->app[$this->entityManager]->merge($entity);
-        $this->app[$this->entityManager]->flush();
+        return ($entity->isValid()
+                && $this->app[$this->entityManager]->merge($entity)
+                && $this->app[$this->entityManager]->flush());
     }
 
 }

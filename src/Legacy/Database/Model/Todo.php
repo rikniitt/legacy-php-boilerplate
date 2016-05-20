@@ -70,4 +70,9 @@ class Todo extends Model
         return $this;
     }
 
+    protected function validate()
+    {
+        // No validation for now.
+    }
+
 }
