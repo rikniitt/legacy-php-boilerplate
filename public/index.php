@@ -2,15 +2,23 @@
 
 require __DIR__ . '/../config/bootstrap.php';
 
-// Accepting a JSON Request Body in every route.
-$jsonMiddleware = new Legacy\Middleware\JSONRequest();
-$app->before(array($jsonMiddleware, 'before'));
-
 //$authenticationMiddleware = new Legacy\Middleware\TokenAuthentication();
-//$app->post('/api/some-resource', 'some_resource.controller:create')->before(array($authenticationMiddleware, 'before'));
+//$jsonMiddleware = new Legacy\Middleware\JSONRequest();
+//$app->post('/api/some-resource', function () use ($app) {
+//    $receivedData = $app['request']->request->all();
+//    $receivedData['receivedContentType'] = $app['request']->headers->get('Content-Type'); // application/json
+//    $receivedData['receivedAuthenticationToken'] = $app['request']->headers->get('X-Authentication-Token');
+//    $receivedData['info'] = 'This is api endpoint requiring authenctication token on header and accepting a JSON Request Body';
+//    return $app->json($receivedData, 201);
+//})
+//->before(array($authenticationMiddleware, 'before'))
+//->before(array($jsonMiddleware, 'before'));
 
 //$sessionMiddleware = new Legacy\Middleware\Session();
-//$app->get('login', 'login_controller:login')->before(array($sessionMiddleware, 'before'));
+//$app->get('/login', function () use ($app) {
+//    $app['request']->getSession()->set('userId', 666);
+//    return sprintf('User #%d currently logged in', $app['request']->getSession()->get('userId'));
+//})->before(array($sessionMiddleware, 'before'));
 
 //$ipWhitelistMiddleware = new Legacy\Middleware\IPWhitelist();
 //$app->get('/intranetz', function () {
