@@ -1,0 +1,19 @@
+{% extends "layouts/master.twig" %}
+
+{% block title %}Todo{% endblock %}
+
+
+{% block content %}
+    <div class="row row-centered">
+        <div class="col-md-8 col-xs-12 col-centered">
+            <h1>{{ todo.name }} - #{{ todo.id }}</h1>
+            <hr />
+            <pre>{{ todo.content }}</pre>
+        </div>
+        <div class="col-md-4 col-xs-12 col-centered">
+            <a class="btn btn-default" href="{{ requestHelper.url('todo') }}">List</a>
+            <a class="btn btn-default" href="{{ requestHelper.url('todo/edit/') }}{{ todo.id }}">Edit</a>
+            <a class="btn btn-default" href="{{ requestHelper.url('todo/delete/') }}{{ todo.id }}">Delete</a>
+        </div>
+    </div>
+{% endblock %}

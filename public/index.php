@@ -22,5 +22,11 @@ $app->before(array($jsonMiddleware, 'before'));
 //    return '<h1>Administrator area!</h1>';
 //})->before(array($basicAuthMiddleware, 'before'));
 
+$app->get('/todo/delete/{id}', 'todo.controller:delete');
+$app->get('/todo/edit/{id}', 'todo.controller:edit');
+$app->get('/todo/create', 'todo.controller:create');
+$app->post('/todo/save', 'todo.controller:save');
+$app->get('/todo/{id}', 'todo.controller:show');
+$app->get('/todo', 'todo.controller:index');
 $app->get('/', 'todo.controller:index');
 $app->run();

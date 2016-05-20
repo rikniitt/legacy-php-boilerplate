@@ -72,7 +72,13 @@ class Todo extends Model
 
     protected function validate()
     {
-        // No validation for now.
+        if (!$this->getName()) {
+            $this->addValidationError('Name must be set.');
+        }
+
+        if (!$this->getContent()) {
+            $this->addValidationError('Content must be set.');
+        }
     }
 
 }

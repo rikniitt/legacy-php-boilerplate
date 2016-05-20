@@ -25,18 +25,18 @@ class Application extends SilexApplication
     {
         $app = $this;
 
-        $app['todos.repository'] = $app->share(function () use ($app) {
+        $app['todo.repository'] = $app->share(function () use ($app) {
             return new Database\Repository\Todo($app);
         });
         $app['todo.controller'] = $app->share(function () use ($app) {
-            return new Controller\Todo($app, $app['todos.repository']);
+            return new Controller\Todo($app, $app['todo.repository']);
         });
-        
+
         $app['requestHelper'] = $app->share(function () use ($app) {
             return new Library\RequestHelper($app['request']);
         });
     }
-    
+
     public function render($view, $data = array())
     {
         $this['twig']->addGlobal('requestHelper', $this['requestHelper']);

@@ -15,7 +15,7 @@ class RequestHelper
 
     public function url($path = '')
     {
-        return $this->baseUrl() . $path;
+        return $this->baseUrl() . ltrim($path, '/');
     }
 
     /**
@@ -28,7 +28,12 @@ class RequestHelper
         $base = $this->request->getScheme() . '://'
                 . $this->request->getHttpHost() . '/'
                 . $this->request->getBaseUrl();
-        return (substr($base, -1) === '/') ? $base : $base . '/';
+        return $this->addTrailingSlash($base);
+    }
+
+    private function addTrailingSlash($str)
+    {
+        return rtrim($str, '/') . '/';
     }
 
 }

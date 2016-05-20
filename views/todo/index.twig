@@ -2,7 +2,6 @@
 
 {% block title %}Todo list{% endblock %}
 
-
 {% block content %}
     <div class="row row-centered">
         <div class="col-md-8 col-xs-12 col-centered">
@@ -18,14 +17,15 @@
                 <tbody>
                     {% for todo in todos %}
                         <tr>
-                            <td>{{ todo.id }}</td>
+
+                            <td><a href="{{ requestHelper.url('todo/') }}{{ todo.id }}">{{ todo.id }}</a></td>
                             <td>{{ todo.name }}</td>
                             <td>{{ todo.content }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-
+            <a class="btn btn-default" href="{{ requestHelper.url('todo/create') }}">Create</a>
         </div>
     </div>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layouts/master.twig" %}
+
+{% block title %}Create todo entry{% endblock %}
+
+{% block content %}
+    <div class="row row-centered">
+        <div class="col-md-8 col-xs-12 col-centered">
+            <form method="post" action="{{ requestHelper.url('todo/save') }}">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" name="name" placeholder="Name for todo entry" value="{{ todo.name }}" />
+                </div>
+                <div class="form-group">
+                    <label for="content">Content:</label>
+                    <textarea name="content" class="form-control">{{ todo.content }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-default">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

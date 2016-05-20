@@ -27,16 +27,36 @@ abstract class Repository extends EntityRepository
 
     public function save(Model $entity)
     {
-        return ($entity->isValid()
-                && $this->app[$this->entityManager]->persist($entity)
-                && $this->app[$this->entityManager]->flush());
+        if ($entity->isValid()) {
+            $this->getEntityManager()->persist($entity);
+            $this->getEntityManager()->flush();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function update(Model $entity)
     {
-        return ($entity->isValid()
-                && $this->app[$this->entityManager]->merge($entity)
-                && $this->app[$this->entityManager]->flush());
+        if ($entity->isValid()) {
+            $this->getEntityManager()->merge($entity);
+            $this->getEntityManager()->flush();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function delete(Model $entity)
+    {
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush();
+    }
+
+    public function create()
+    {
+        $clazz = $this->getClassName();
+        return new $clazz;
     }
 
 }
