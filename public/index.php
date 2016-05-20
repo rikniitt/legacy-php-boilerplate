@@ -17,7 +17,7 @@ require __DIR__ . '/../config/bootstrap.php';
 //$sessionMiddleware = new Legacy\Middleware\Session();
 //$app->get('/login', function () use ($app) {
 //    $app['request']->getSession()->set('userId', 666);
-//    return sprintf('User #%d currently logged in', $app['request']->getSession()->get('userId'));
+//    return sprintf('<h1>User #%d currently logged in</h1>', $app['request']->getSession()->get('userId'));
 //})->before(array($sessionMiddleware, 'before'));
 
 //$ipWhitelistMiddleware = new Legacy\Middleware\IPWhitelist();
