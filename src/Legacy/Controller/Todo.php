@@ -52,7 +52,8 @@ class Todo extends Controller
     public function create()
     {
         return $this->render('todo/form.twig', array(
-            'todo' => $this->repository->create()
+            'todo' => $this->repository->create(),
+            'formAction' => $this->url('/todo/save')
         ));
     }
 
@@ -77,12 +78,32 @@ class Todo extends Controller
 
         if ($todo) {
             return $this->render('todo/form.twig', array(
-                'todo' => $todo
+                'todo' => $todo,
+                'formAction' => $this->url('/todo/update/' . $todo->getId())
             ));
         } else {
             $this->app->abort(404, sprintf('Could not find todo with id %d.', $id));
         }
 
+    }
+
+    public function update($id, Request $request)
+    {
+        $todo =  $this->repository->find($id);
+
+        if (!$todo) {
+            $this->app->abort(404, sprintf('Could not find todo with id %d.', $id));
+        }
+
+        $todo->setName($request->get('name'));
+        $todo->setContent($request->get('content'));
+
+        if ($this->repository->update($todo)) {
+            return $this->app->redirect('/todo/' . $todo->getId());
+        } else {
+            // Report errors to user ($todo->getValidationErrors())
+            return $this->app->redirect('/todo/edit/' . $todo->getId());
+        }
     }
 
 }

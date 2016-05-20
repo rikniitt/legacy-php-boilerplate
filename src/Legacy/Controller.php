@@ -21,4 +21,9 @@ abstract class Controller
         return new Response($template, $this->statusCode);
     }
 
+    protected function url($path = '')
+    {
+        return $this->app['requestHelper']->url($path);
+    }
+
 }

@@ -32,6 +32,7 @@ require __DIR__ . '/../config/bootstrap.php';
 
 $app->get('/todo/delete/{id}', 'todo.controller:delete');
 $app->get('/todo/edit/{id}', 'todo.controller:edit');
+$app->post('/todo/update/{id}', 'todo.controller:update');
 $app->get('/todo/create', 'todo.controller:create');
 $app->post('/todo/save', 'todo.controller:save');
 $app->get('/todo/{id}', 'todo.controller:show');

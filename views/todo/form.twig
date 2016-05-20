@@ -5,7 +5,7 @@
 {% block content %}
     <div class="row row-centered">
         <div class="col-md-8 col-xs-12 col-centered">
-            <form method="post" action="{{ requestHelper.url('todo/save') }}">
+            <form method="post" action="{{ formAction }}">
                 <div class="form-group">
                     <label for="name">Name:</label>
                     <input type="text" class="form-control" name="name" placeholder="Name for todo entry" value="{{ todo.name }}" />
