@@ -64,12 +64,10 @@ class Todo extends Controller
         $todo->setContent($request->get('content'));
 
         if ($this->repository->save($todo)) {
-            $url = $this->app['requestHelper']->url('todo/') . $todo->getId();
-            return $this->app->redirect($url);
+            return $this->app->redirect('/todo/' . $todo->getId());
         } else {
             // Report errors to user ($todo->getValidationErrors())
-            $url = $this->app['requestHelper']->url('todo/create');
-            return $this->app->redirect($url);
+            return $this->app->redirect('/todo/create');
         }
     }
 
