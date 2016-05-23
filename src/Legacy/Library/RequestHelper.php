@@ -26,7 +26,7 @@ class RequestHelper
     public function baseUrl()
     {
         $base = $this->request->getScheme() . '://'
-                . $this->request->getHttpHost() . '/'
+                . $this->request->getHttpHost()
                 . $this->request->getBaseUrl();
         return $this->addTrailingSlash($base);
     }
