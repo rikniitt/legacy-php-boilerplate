@@ -2,7 +2,6 @@
 
 namespace Legacy\Middleware;
 
-use Legacy\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,14 +21,14 @@ class HttpBasicAuthentication
     private $authorizedUsers = array(
         'admin' => '$1$PJotY6fY$Sk.eRD/LEhAKHWXAMUutu/'
     );
-    
+
     private $realm = 'Secure Realm';
 
-    public function before(Request $request, Application $app)
+    public function before(Request $request)
     {
         $username = $request->headers->get('PHP_AUTH_USER') ? : null;
         $password = $request->headers->get('PHP_AUTH_PW') ? : null;
-        
+
         if (!$this->verify($username, $password)) {
             $response = new Response();
             $response->setStatusCode(401)

@@ -47,14 +47,16 @@ class Application extends SilexApplication
     public function renderError(\Exception $e, $code)
     {
         if ($code === 404) {
+            $uri = $this['request']->getRequestUri();
+            $msg = sprintf('Could not find page "%s" you were looking for.', $uri);
             $template = $this->render('error/404.twig', array(
-                'message' => 'Could not find page "' . $this['request']->getRequestUri() . '" you were looking for.',
+                'message' => $msg,
                 'code' => 404
             ));
         } else {
-            $message = ($this['debug']) ? $e->getMessage() : 'Something went wrong.';
+            $msg = ($this['debug']) ? $e->getMessage() : 'Something went wrong.';
             $template = $this->render('error/generic.twig', array(
-                'message' => $message,
+                'message' => $msg,
                 'code' => 500
             ));
         }

@@ -26,7 +26,7 @@ class Todo extends Controller
 
     public function show($id)
     {
-        $todo =  $this->repository->find($id);
+        $todo = $this->repository->find($id);
 
         if ($todo) {
             return $this->render('todo/show.twig', array(
@@ -39,7 +39,7 @@ class Todo extends Controller
 
     public function delete($id)
     {
-        $todo =  $this->repository->find($id);
+        $todo = $this->repository->find($id);
 
         if ($todo) {
             $this->repository->delete($todo);
@@ -67,14 +67,14 @@ class Todo extends Controller
         if ($this->repository->save($todo)) {
             return $this->app->redirect('/todo/' . $todo->getId());
         } else {
-            // Report errors to user ($todo->getValidationErrors())
+            // Report errors to user with $todo->getValidationErrors()
             return $this->app->redirect('/todo/create');
         }
     }
 
     public function edit($id)
     {
-        $todo =  $this->repository->find($id);
+        $todo = $this->repository->find($id);
 
         if ($todo) {
             return $this->render('todo/form.twig', array(
@@ -89,7 +89,7 @@ class Todo extends Controller
 
     public function update($id, Request $request)
     {
-        $todo =  $this->repository->find($id);
+        $todo = $this->repository->find($id);
 
         if (!$todo) {
             $this->app->abort(404, sprintf('Could not find todo with id %d.', $id));
@@ -101,7 +101,7 @@ class Todo extends Controller
         if ($this->repository->update($todo)) {
             return $this->app->redirect('/todo/' . $todo->getId());
         } else {
-            // Report errors to user ($todo->getValidationErrors())
+            // Report errors to user with $todo->getValidationErrors()
             return $this->app->redirect('/todo/edit/' . $todo->getId());
         }
     }

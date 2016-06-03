@@ -17,7 +17,11 @@ class TokenAuthentication
         $token = $request->headers->get('X-Authentication-Token');
 
         if (!$this->isAuthorized($token, $app)) {
-            $app->abort(401, 'Not authenticated. X-Authentication-Token ' . $token . ' is not authorized.');
+            $msg = sprinf(
+                'Not authenticated. X-Authentication-Token %s is not authorized.',
+                $token
+            );
+            $app->abort(401, $msg);
         }
     }
 
