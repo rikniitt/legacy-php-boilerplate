@@ -17,11 +17,17 @@ elif [ -z "$PHP_PORT" ]; then
     PHP_PORT=8000
 fi
 
+if [ -z "$PHP_PUBLIC" ]; then
+    HOST='localhost'
+else
+    HOST='0.0.0.0'
+fi
+
 trap 'kill_php_server' SIGINT
 function kill_php_server() {
-    ps aux | grep "[p]hp -S localhost:$PHP_PORT -t ./public/" | awk '{print $2}' | xargs -r kill -9
+    ps aux | grep "[p]hp -S $HOST:$PHP_PORT -t ./public/" | awk '{print $2}' | xargs -r kill -9
 }
 
 LOG_FILE="./logs/$( date +'%Y%m%d' )_$LOG_NAME.log"
 touch $LOG_FILE
-{ php -S localhost:$PHP_PORT -t ./public/ & tail -f $LOG_FILE; }
+{ php -S $HOST:$PHP_PORT -t ./public/ & tail -f $LOG_FILE; }
