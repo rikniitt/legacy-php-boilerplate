@@ -80,6 +80,9 @@
     <rule ref="PSR2.Classes.ClassDeclaration">
         <!-- Squiz.WhiteSpace.FunctionSpacing == 1 -->
         <exclude name="PSR2.Classes.ClassDeclaration.CloseBraceAfterBody" />
+        <!-- Duplicate. See (PEAR.Classes.ClassDeclaration.OpenBraceNewLine & SpaceBeforeBrace) -->
+        <exclude name="PSR2.Classes.ClassDeclaration.OpenBraceNewLine" />
+        <exclude name="PSR2.Classes.ClassDeclaration.SpaceBeforeBrace" />
     </rule>
 
     <!-- Check that the property declaration adheres to all PSR2 rules. -->
