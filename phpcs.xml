@@ -148,7 +148,7 @@
 
     <!-- Checks that there are no blank lines after a functions opening brace and that opening braces are on the new line.-->
     <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace"/>
-    
+
     <!-- Checks the separation between methods in a class or interface. -->
     <rule ref="Squiz.WhiteSpace.FunctionSpacing">
         <properties>
