@@ -17,7 +17,8 @@ logs/*.zip
 vendor/
 composer.phar
 public/assets/vendor/
-node_modules/
 config/config.file
+config/migrations/.lastmigrationrun
 build/
+node_modules/
 nbproject/

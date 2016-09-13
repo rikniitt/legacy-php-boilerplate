@@ -23,7 +23,7 @@
         <!-- Uses custom adhoc task defined below. -->
         <log-archive dir="${absolutebasedir}/logs" />
     </target>
-    
+
     <target name="assets-publish" description="Publish assets installed via composer.">
 
         <echo msg="Cleaning up ${publicdir}/assets/vendor directory." />
@@ -107,11 +107,19 @@
         <propertyprompt propertyName="migrationname" defaultValue="give_a_meaningful_name_in_snake_case" promptText="Enter name for the migration" />
         <tstamp>
             <format property="DATETIME" pattern="%Y%m%d_%H%M%S" />
+            <format property="CREATETIME" pattern="%m/%d/%Y %H:%M %p" />
         </tstamp>
-        <touch file="${absolutebasedir}/config/migrations/${DATETIME}_${migrationname}.sql" />
+        <touch file="${absolutebasedir}/config/migrations/${DATETIME}_${migrationname}.sql" datetime="${CREATETIME}" />
     </target>
 
-    <target name="migration-run-all" description="Run every migration.">
+    <target name="migration-run" description="Run all new migrations.">
+        <tstamp>
+            <format property="TIMESTAMP" pattern="%s"  />
+        </tstamp>
+
+        <property name="lastmigrationrun" value="0" />
+        <property file="${absolutebasedir}/config/migrations/.lastmigrationrun" override="true"/>
+
         <apply executable="mysql" parallel="false" passthru="true" checkreturn="false">
             <arg line="-h${DB_HOST}" />
             <arg line="-u${DB_USER}" />
@@ -120,9 +128,12 @@
             <arg value="&lt;" />
             <srcfile />
             <fileset dir="${absolutebasedir}/config/migrations">
+                <date seconds="${lastmigrationrun}" when="after"/>
                 <include name="*.sql" />
             </fileset>
         </apply>
+
+        <echo msg="lastmigrationrun=${TIMESTAMP}" file="${absolutebasedir}/config/migrations/.lastmigrationrun" append="false" />
     </target>
 
     <target name="test" description="Run all unit tests with PHPUnit.">
@@ -151,7 +162,7 @@
     <target name="prepare" depends="clean">
         <mkdir dir="${builddir}" />
     </target>
-    
+
     <!-- Adhoc tasks: -->
     <adhoc-task name="log-archive"><![CDATA[
         class LogArchive extends Task {
@@ -167,7 +178,7 @@
                     $months = array();
                     foreach (glob($this->dir . '/*.log') as $f) {
                         preg_match('/([0-9]{6})/', basename($f), $captured);
-                        if (count($captured) === 2 
+                        if (count($captured) === 2
                             && $captured[1] !== $exclude
                             && !in_array($captured[1], $months))
                             $months[] = $captured[1];
@@ -178,7 +189,7 @@
                     }
                 }
             }
-        
+
             private function zipFiles($month, $logFiles) {
                 $zipFile = $this->dir . '/' . $month . '_archive.zip';
                 $this->log("Compressing logs from {$this->dir} and $month to $zipFile");

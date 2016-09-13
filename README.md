@@ -39,9 +39,7 @@ These settings are also used by phing build.xml and helper scripts.
 
 Database migrations are located in *config/migrations*-directory as sql files. You can create
 new migration file with `./phing migration-create`. Migrations can be inserted
-to your database with `./phing migration-run-all`. Note that this script won't
-keep track which migrations have been inserted, so everytime you run migrations,
-they will be inserted in creation time order from the oldest to newest.
+to your database with `./phing migration-run`.
 
 
 ## Tests
