@@ -6,6 +6,7 @@
         "doctrine/dbal": "2.5.2",
         "doctrine/orm": "2.4.8",
         "dflydev/doctrine-orm-service-provider": "1.0.7",
+        "respect/validation": "0.9.8",
         "twig/twig": "1.23.1",
         "monolog/monolog": "1.17.2",
         "josegonzalez/dotenv": "1.0.3",

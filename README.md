@@ -6,6 +6,7 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
 #### Dependencies
  * [Silex](http://silex.sensiolabs.org/documentation) PHP micro-framework.
  * [Doctrine](http://www.doctrine-project.org/) as [database abstraction layer](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/) and [ORM](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/).
+ * [Respect\Validation](https://github.com/Respect/Validation/blob/0.9/docs/VALIDATORS.md) as validation library.
  * [Twig](http://twig.sensiolabs.org/documentation) as template engine.
  * [Monolog](https://github.com/Seldaek/monolog) for logging.
  * [PHP Dotenv](https://github.com/josegonzalez/php-dotenv) for loading config files.
@@ -28,8 +29,8 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
 
 ## Configuration
 
-Local settings are stored in *config/config.file*. This file is created by 
-`./phing install`. Setup your local database credentials and other project 
+Local settings are stored in *config/config.file*. This file is created by
+`./phing install`. Setup your local database credentials and other project
 settings. They can be accessed via Legacy\Application instance method getSetting($key).
 These settings are also used by phing build.xml and helper scripts.
 
@@ -46,7 +47,7 @@ they will be inserted in creation time order from the oldest to newest.
 ## Tests
 
 Tests are located in *tests*-folder. Tests can be executed with `./phing test`
-or `./vendor/bin/phpunit`. 
+or `./vendor/bin/phpunit`.
 
 
 ## Helper scripts
@@ -60,4 +61,4 @@ or `./vendor/bin/phpunit`.
 ## Frontend dependencies
 
 Frontend dependencies can be 'published' with `./phing assets-publish`. This will copy bootstrap from *vendor*-dir to
-*public/assets/vendor*-directory. 
+*public/assets/vendor*-directory.

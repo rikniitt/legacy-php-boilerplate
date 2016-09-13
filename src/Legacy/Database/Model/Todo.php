@@ -4,6 +4,7 @@ namespace Legacy\Database\Model;
 
 use Legacy\Database\Model;
 use Doctrine\ORM\Mapping as ORM;
+use Respect\Validation\Validator;
 
 /**
  * Todo
@@ -70,15 +71,13 @@ class Todo extends Model
         return $this;
     }
 
-    protected function validate()
+    protected function setValidationRules($validator)
     {
-        if (!$this->getName()) {
-            $this->addValidationError('Name must be set.');
-        }
+        $required = new Validator();
+        $required->notEmpty();
 
-        if (!$this->getContent()) {
-            $this->addValidationError('Content must be set.');
-        }
+        $validator->attribute('name', $required);
+        $validator->attribute('content', $required);
     }
 
 }
