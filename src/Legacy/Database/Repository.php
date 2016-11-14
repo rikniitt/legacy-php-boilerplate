@@ -13,14 +13,14 @@ abstract class Repository extends EntityRepository
     protected $modelName = 'Legacy\Database\Model\NotDefined';
 
     // Which connection.
-    protected $entityManager = 'orm.em';
+    protected $entityManager = 'not-defined';
 
     protected $app;
 
     public function __construct(Application $app)
     {
         $this->app = $app;
-        $entityManager = $app[$this->entityManager];
+        $entityManager = $app['orm.ems'][$this->entityManager];
         $clazz = new ClassMetadata($this->modelName);
         parent::__construct($entityManager, $clazz);
     }

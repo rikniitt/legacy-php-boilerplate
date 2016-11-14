@@ -38,28 +38,51 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 
 // Register doctrine dbal.
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'db.options' => array(
-        'driver' => 'pdo_mysql',
-        'host' => $settings['DB_HOST'],
-        'dbname' => $settings['DB_NAME'],
-        'user' => $settings['DB_USER'],
-        'password' => $settings['DB_PASS'],
-        'charset' => 'utf8'
+    'dbs.options' => array(
+        'myWebApplication' => array(
+            'driver' => 'pdo_mysql',
+            'host' => $settings['DB_HOST'],
+            'dbname' => $settings['DB_NAME'],
+            'user' => $settings['DB_USER'],
+            'password' => $settings['DB_PASS'],
+            'charset' => 'utf8'
+        )
+        /* Example other connection
+        'otherDb' => array(
+            'driver' => 'pdo_sqlite',
+            'path' => '/some/path/to/other.db'
+        ) */
     )
 ));
 // Bind custom logger to Doctrine DBAL.
 $app['db.config']->setSQLLogger(new Legacy\Database\Doctrine\SqlLogger($app['monolog']));
 // Register doctrine orm.
 $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), array(
-    "orm.em.options" => array(
-        "mappings" => array(
-            array(
-                "type" => "annotation",
-                "namespace" => "Legacy\Database\Model",
-                "path" => MODEL_DIR,
-                "use_simple_annotation_reader" => false // using @ORM\Entity instead of plain @Entity
+    'orm.ems.default' => 'myWebApplication',
+    'orm.ems.options' => array(
+        'myWebApplication' => array(
+            'connection' => 'myWebApplication',
+            'mappings' => array(
+                array(
+                    'type' => 'annotation',
+                    'namespace' => 'Legacy\Database\Model',
+                    'path' => MODEL_DIR,
+                    'use_simple_annotation_reader' => false // using @ORM\Entity instead of plain @Entity
+                )
             )
         )
+        /*
+        'otherDb' => array(
+            'connection' => 'otherDb',
+            'mappings' => array(
+                array(
+                    'type' => 'annotation',
+                    'namespace' => 'Legacy\Database\Model',
+                    'path' => MODEL_DIR,
+                    'use_simple_annotation_reader' => false // using @ORM\Entity instead of plain @Entity
+                )
+            )
+        ) */
     )
 ));
 
