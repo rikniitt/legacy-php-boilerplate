@@ -11,29 +11,30 @@ class RepositoryIterator implements Iterator, Countable, ArrayAccess
     private $repository;
     private $limit;
     private $offset;
+    private $count;
     private $totalCount;
     private $currentOffset;
-
-    private $where = array();
-    private $orderBy = array();
 
     public function __construct(Repository $repository, $limit = null, $offset = 0)
     {
         $this->repository = $repository;
         $this->limit = $limit;
         $this->offset = $offset;
-        $this->totalCount = $repository->getCount();
         $this->currentOffset = $offset;
+        $this->count = $this->getCount();
     }
 
-    public function setWhere(array $where)
+    private function getCount()
     {
-        $this->where = $where;
-    }
+        $this->totalCount = $this->repository->getCount();
 
-    public function setOrderBy(array $orderBy)
-    {
-        $this->orderBy = $orderBy;
+        if ($this->limit && $this->offset > 0) {
+            return min($this->limit, $this->totalCount - $this->offset);
+        } else if ($this->limit) {
+            return min($this->limit, $this->totalCount);
+        } else {
+            return $this->totalCount;
+        }
     }
 
     /* Iterator --> */
@@ -43,8 +44,8 @@ class RepositoryIterator implements Iterator, Countable, ArrayAccess
         $this->repository->freeMemory();
 
         $result = $this->repository->findBy(
-            $this->where,
-            $this->orderBy,
+            array(),
+            array(),
             1,
             $this->currentOffset
         );
@@ -77,17 +78,18 @@ class RepositoryIterator implements Iterator, Countable, ArrayAccess
 
     public function count()
     {
-        return $this->totalCount;
+        return $this->count;
     }
 
     /* ArrayAccess --> */
 
     public function offsetExists($offset)
     {
-        return (is_int($offset)
-                && $offset >= $this->offset
-                && $offset < $this->totalCount
-                && (!$this->limit || $offset - $this->offset < $this->limit));
+        if (!is_int($offset)) {
+            return false;
+        }
+
+        return ($offset >= 0 && $offset < $this->count());
     }
 
     public function offsetGet($offset)
@@ -100,7 +102,7 @@ class RepositoryIterator implements Iterator, Countable, ArrayAccess
 
         // Use current() so that it always returns correct object
         $tempCurOffset = $this->currentOffset;
-        $this->currentOffset = $offset;
+        $this->currentOffset = ($this->offset > 0) ? $this->offset + $offset : $offset;
         $item = $this->current();
         $this->currentOffset = $tempCurOffset;
 
