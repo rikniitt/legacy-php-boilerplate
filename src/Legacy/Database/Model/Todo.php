@@ -7,17 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Respect\Validation\Validator;
 
 /**
- * Todo
- *
- * @ORM\Table(name="todo")
  * @ORM\Entity
+ * @ORM\Table(name="todo")
  */
 class Todo extends Model
 {
 
     /**
-     * @var id
-     *
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue
@@ -25,15 +21,11 @@ class Todo extends Model
     private $id;
 
     /**
-     * @var name
-     *
      * @ORM\Column(type="string", length=50)
      */
     private $name;
 
     /**
-     * @var content
-     *
      * @ORM\Column(type="text")
      */
     private $content;
