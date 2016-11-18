@@ -59,4 +59,20 @@ abstract class Repository extends EntityRepository
         return new $clazz;
     }
 
+    public function freeMemory()
+    {
+        $this->getEntityManager()->flush();
+        $this->getEntityManager()->clear();
+    }
+
+    public function getCount()
+    {
+        $count = $this->createQueryBuilder('model')
+                      ->select('COUNT(model)')
+                      ->getQuery()
+                      ->getSingleScalarResult();
+
+        return intval($count);
+    }
+
 }
