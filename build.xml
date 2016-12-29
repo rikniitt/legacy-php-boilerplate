@@ -136,6 +136,11 @@
         <echo msg="lastmigrationrun=${TIMESTAMP}" file="${absolutebasedir}/config/migrations/.lastmigrationrun" append="false" />
     </target>
 
+    <target name="show-routes" description="Print application routes.">
+        <!-- Uses custom adhoc task defined below. -->
+        <show-routes />
+    </target>
+
     <target name="test" description="Run all unit tests with PHPUnit.">
         <phpunit
             haltonfailure="true"
@@ -215,6 +220,31 @@
 
             public function setDir($dir) { $this->dir = $dir; }
             public function setMonth($month) { $this->month = $month; }
+        }
+    ]]></adhoc-task>
+
+    <adhoc-task name="show-routes"><![CDATA[
+        class ShowRoutes extends Task {
+            public function main() {
+                $baseDir = $this->getProject()->getBaseDir();
+                require $baseDir . '/config/bootstrap.php';
+                require $baseDir . '/config/routes.php';
+                $app->flush();
+                $this->log($this->padded('METHOD') . 'ROUTE');
+                $this->log($this->line());
+                foreach ($app['routes'] as $r) {
+                    foreach ($r->getMethods() as $m) {
+                        $this->log($this->padded($m) . $r->getPath());
+                    }
+                }
+                $this->log($this->line());
+            }
+            private function padded($methodStr) {
+                return str_pad($methodStr, 8, ' ');
+            }
+            private function line() {
+                return str_repeat('=', 35);
+            }
         }
     ]]></adhoc-task>
 </project>
