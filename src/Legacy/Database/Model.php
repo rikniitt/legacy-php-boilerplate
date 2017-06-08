@@ -2,37 +2,35 @@
 
 namespace Legacy\Database;
 
-use Respect\Validation\Validator;
-use Respect\Validation\Exceptions\NestedValidationExceptionInterface as ValidationErrors;
+use Valitron\Validator;
 
 abstract class Model
 {
 
-    private $validationErrors = array();
+    private $validationErrors = [];
 
     public function isValid()
     {
-        $this->validationErrors = array();
+        $this->validationErrors = [];
+        $data = [];
 
-        $validator = new Validator();
-        $this->setValidationRules($validator);
-
-        $isValid = false;
-        try {
-            $isValid = $validator->assert($this);
-        } catch (ValidationErrors $ex) {
-            $this->addValidationError($ex->getFullMessage());
+        // This wont work if child has declared properties as private.
+        foreach ($this as $key => $value) {
+            $data[$key] = $value;
         }
 
-        return ($isValid === true && count($this->validationErrors) === 0);
+        $validator = new Validator($data);
+        $this->setValidationRules($validator);
+
+        if ($validator->validate()) {
+            return true;
+        } else {
+            $this->validationErrors = $validator->errors();
+            return false;
+        }
     }
 
-    abstract protected function setValidationRules($validator);
-
-    protected function addValidationError($message)
-    {
-        $this->validationErrors[] = $message;
-    }
+    abstract protected function setValidationRules(Validator $validator);
 
     public function getValidationErrors()
     {

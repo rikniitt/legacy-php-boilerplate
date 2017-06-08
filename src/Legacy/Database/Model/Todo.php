@@ -18,17 +18,17 @@ class Todo extends Model
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $name;
+    protected $name;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    protected $content;
 
     public function getId()
     {
@@ -63,13 +63,16 @@ class Todo extends Model
         return $this;
     }
 
-    protected function setValidationRules($validator)
+    protected function setValidationRules(\Valitron\Validator $validator)
     {
-        $required = new Validator();
-        $required->notEmpty();
+        $rules = [
+            'required' => [
+                ['name'],
+                ['content']
+            ]
+        ];
 
-        $validator->attribute('name', $required);
-        $validator->attribute('content', $required);
+        $validator->rules($rules);
     }
 
 }
