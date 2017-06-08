@@ -81,7 +81,6 @@ class RoboFile extends \Robo\Tasks
                  ->run();
         }
 
-
         $nspaceToPath = function ($str) {
             return str_replace('\\', '/', $str);
         };
