@@ -107,5 +107,8 @@ $app->error(function (\Exception $e, $code) use ($app) {
     return $app->renderError($e, $code);
 });
 
+// Register application services.
+require ROOT_DIR . '/config/services.php';
 
 $app['monolog']->debug('Application created and configured.');
+return $app;
