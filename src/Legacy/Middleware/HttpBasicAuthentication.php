@@ -12,7 +12,7 @@ class HttpBasicAuthentication
      *  where username => (hashed) password.
      *
      * To add new user:
-     * $ ./app_console
+     * $ ./robo app:console
      * >>> Legacy\Middleware\HTTPBasicAuthentication::hashPassword('new super sweet password');
      * Copy-paste result to $authorizedUsers array.
      *

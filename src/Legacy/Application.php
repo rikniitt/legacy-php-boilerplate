@@ -33,7 +33,7 @@ class Application extends SilexApplication
     public function renderError(\Exception $e, $code)
     {
         if ($code === 404) {
-            $uri = $this['request']->getRequestUri();
+            $uri = $this['current.request']->getRequestUri();
             $msg = sprintf('Could not find page "%s" you were looking for.', $uri);
             $template = $this->render('error/404.twig', array(
                 'message' => $msg,

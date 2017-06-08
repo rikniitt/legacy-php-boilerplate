@@ -9,7 +9,7 @@
  */
 
 $currentRequest = New Legacy\Middleware\BindCurrentRequestToApplication();
-$app->before([$currentRequest, 'before']);
+$app->before([$currentRequest, 'before'], Legacy\Application::EARLY_EVENT);
 
 //$authenticationMiddleware = new Legacy\Middleware\TokenAuthentication();
 //$jsonMiddleware = new Legacy\Middleware\JSONRequest();
