@@ -16,15 +16,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 80, host:8080
 
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
-    v.cpus = 2
-  end
+  config.vm.synced_folder ".", "/vagrant", owner: "www-data", group: "vagrant"
 
   box_config = {
     :mysql_root_password => "root"
   }
 
+  # Setup apache, mysql and php
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     debconf-set-selections <<< "mysql-server mysql-server/root_password password #{box_config[:mysql_root_password]}"
@@ -51,6 +49,20 @@ EOL
     a2ensite legacy
     a2enmod rewrite
     service apache2 restart
+  SHELL
+
+  # Install project
+  config.vm.provision "shell", privileged:false, inline: <<-SHELL
+    cd /vagrant
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar install --no-progress --no-suggest --no-interaction --no-ansi
+    ./phing install
+    # Setup db
+    sed -i "s/DB_USER='username'/DB_USER='root'/" ./config/config.file
+    sed -i "s/DB_PASS='password'/DB_PASS='#{box_config[:mysql_root_password]}'/" ./config/config.file
+    source ./config/config.file
+    mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" -e "CREATE DATABASE $DB_NAME"
+    ./phing migration-run
   SHELL
 
 end

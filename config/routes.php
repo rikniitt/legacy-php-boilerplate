@@ -45,4 +45,6 @@ $app->get('/todo/{todo}', 'todo.controller:show')
     ->convert('todo', 'todo.repository:convert');
 $app->get('/todo', 'todo.controller:index')
     ->before(array(new Legacy\Middleware\PaginationRequest(), 'before'));
-$app->get('/', 'todo.controller:index');
+$app->get('/', function() {
+    return new Symfony\Component\HttpFoundation\RedirectResponse('/todo');
+});

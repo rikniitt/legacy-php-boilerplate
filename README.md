@@ -25,6 +25,8 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
   * Download composer.phar with `curl -sS https://getcomposer.org/installer | php`.
   * Install dependencies `php composer.phar install`.
   * Install project `./phing install`.
+  Or if you are using [Vagrant](https://www.vagrantup.com/downloads.html), just
+  * `vagrant up`
 
 
 ## Configuration
