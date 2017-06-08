@@ -100,6 +100,9 @@
             <fileset dir="${testsdir}">
                 <include name="**/*.php"/>
             </fileset>
+            <fileset dir="${absolutebasedir}/config">
+                <include name="**/*.php"/>
+            </fileset>
         </phplint>
     </target>
 
