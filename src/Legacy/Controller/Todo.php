@@ -49,6 +49,8 @@ class Todo extends Controller
 
     public function create()
     {
+        $this->app['alerts']->add('Example warning here.', 'warning');
+
         return $this->render('todo/form.twig', array(
             'todo' => $this->repository->create(),
             'formAction' => $this->url('/todo/save')

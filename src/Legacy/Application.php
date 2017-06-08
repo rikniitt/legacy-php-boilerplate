@@ -23,7 +23,11 @@ class Application extends SilexApplication
     {
         $this['twig']->addGlobal('requestHelper', $this['requestHelper']);
 
-        return $this['twig']->render($view, $data);
+        $viewData = array_merge(array(
+            'alerts' => $this['alerts']->getAll()
+        ), $data);
+
+        return $this['twig']->render($view, $viewData);
     }
 
     public function renderError(\Exception $e, $code)

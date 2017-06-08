@@ -17,3 +17,9 @@ $app['todo.controller'] = $app->share(function () use ($app) {
 $app['requestHelper'] = $app->share(function () use ($app) {
     return new Legacy\Library\RequestHelper($app['request']);
 });
+$app['alerts'] = $app->share(function () {
+    return new Legacy\Library\Alerts\Container();
+});
+$app['flash.alerts'] = $app->share(function () use ($app) {
+    return new Legacy\Library\Alerts\FlashContainer($app['request']->getSession());
+});
