@@ -36,4 +36,18 @@ class RequestHelper
         return rtrim($str, '/') . '/';
     }
 
+    public function currentUrl(array $params = array())
+    {
+        $req = $this->request;
+        $url = $req->getSchemeAndHttpHost() . $req->getBaseUrl() . $req->getPathInfo();
+
+        if ($req->getQueryString() !== null) {
+            // Have to override existing query parameters with $params
+            parse_str($req->getQueryString(), $oldParams);
+            $params = array_merge($oldParams, $params);
+        }
+
+        return $url . '?' . http_build_query($params);
+    }
+
 }
