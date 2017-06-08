@@ -26,7 +26,7 @@ Boilerplate utilizes following [composer](https://getcomposer.org/doc/) [package
   * You will need PHP, Apache and MySql.
   * Download composer.phar with `curl -sS https://getcomposer.org/installer | php`.
   * Install dependencies `php composer.phar install`.
-  * Install project `./phing install`.
+  * Install project `./robo install`.
 
   Or if you are using [Vagrant](https://www.vagrantup.com/downloads.html), just
 
@@ -36,33 +36,32 @@ Boilerplate utilizes following [composer](https://getcomposer.org/doc/) [package
 ## Configuration
 
 Local settings are stored in *config/config.file*. This file is created by
-`./phing install`. Setup your local database credentials and other project
+`./robo install`. Setup your local database credentials and other project
 settings. They can be accessed via Legacy\Application instance method getSetting($key).
-These settings are also used by phing build.xml and helper scripts.
 
 
 ## Migrations
 
 Database migrations are located in *config/migrations*-directory as sql files. You can create
-new migration file with `./phing migration-create`. Migrations can be inserted
-to your database with `./phing migration-run`.
+new migration file with `./robo migration:create`. Migrations can be inserted
+to your database with `./robo migration:run`.
 
 
 ## Tests
 
-Tests are located in *tests*-folder. Tests can be executed with `./phing test`
+Tests are located in *tests*-folder. Tests can be executed with `./robo test`
 or `./vendor/bin/phpunit`.
 
 
 ## Helper scripts
 
-  * `./app_console` run PHP REPL with your application bootstrapped. Access your application via $app variable.
-  * `./db_console` open mysql console.
-  * `./serve [port_number=8000]` start development server (requires php>=5.4.0).
-  * `./phing -p` list Phing build targets.
+  * `./robo app:console` run PHP REPL with your application bootstrapped. Access your application via $app variable.
+  * `./robo db:console` open mysql console.
+  * `./robo serve [port_number=8000]` start development server.
+  * `./robo` list robo tasks.
 
 
 ## Frontend dependencies
 
-Frontend dependencies can be 'published' with `./phing assets-publish`. This will copy bootstrap from *vendor*-dir to
+Frontend dependencies can be 'published' with `./robo assets:publish`. This will copy bootstrap from *vendor*-dir to
 *public/assets/vendor*-directory.

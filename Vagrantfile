@@ -60,13 +60,13 @@ EOL
     cd /vagrant
     curl -sS https://getcomposer.org/installer | php
     php composer.phar install --no-progress --no-suggest --no-interaction --no-ansi
-    ./phing install
+    ./robo install
     # Setup db
     sed -i "s/DB_USER='username'/DB_USER='root'/" ./config/config.file
     sed -i "s/DB_PASS='password'/DB_PASS='#{box_config[:mysql_root_password]}'/" ./config/config.file
     source ./config/config.file
     mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" -e "CREATE DATABASE $DB_NAME"
-    ./phing migration-run
+    ./robo migration:run
   SHELL
 
 end
