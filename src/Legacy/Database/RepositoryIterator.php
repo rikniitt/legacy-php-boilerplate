@@ -30,7 +30,7 @@ class RepositoryIterator implements Iterator, Countable, ArrayAccess
 
         if ($this->limit && $this->offset > 0) {
             return min($this->limit, $this->totalCount - $this->offset);
-        } else if ($this->limit) {
+        } elseif ($this->limit) {
             return min($this->limit, $this->totalCount);
         } else {
             return $this->totalCount;
