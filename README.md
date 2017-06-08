@@ -8,10 +8,10 @@ Boilerplate utilizes following [composer](https://getcomposer.org/doc/) [package
 #### Dependencies
  * [Silex](http://silex.sensiolabs.org/documentation) PHP micro-framework.
  * [Doctrine](http://www.doctrine-project.org/) as [database abstraction layer](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/) and [ORM](http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/).
- * [Respect\Validation](https://github.com/Respect/Validation/blob/0.9/docs/VALIDATORS.md) as validation library.
+ * [Valitron](https://github.com/vlucas/valitron) as validation library.
  * [Twig](http://twig.sensiolabs.org/documentation) as template engine.
  * [Monolog](https://github.com/Seldaek/monolog) for logging.
- * [PHP Dotenv](https://github.com/josegonzalez/php-dotenv) for loading config files.
+ * [m1/env](https://github.com/m1/Env) for loading config files.
  * [Twitter Bootstrap](http://getbootstrap.com/css/) frontend framework.
 
 #### Development dependencies
