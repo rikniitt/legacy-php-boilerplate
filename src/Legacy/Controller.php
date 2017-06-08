@@ -23,7 +23,7 @@ abstract class Controller
 
     protected function url($path = '')
     {
-        return $this->app['requestHelper']->url($path);
+        return $this->app['request.helper']->url($path);
     }
 
 }

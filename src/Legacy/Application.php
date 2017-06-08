@@ -21,7 +21,7 @@ class Application extends SilexApplication
 
     public function render($view, $data = array())
     {
-        $this['twig']->addGlobal('requestHelper', $this['requestHelper']);
+        $this['twig']->addGlobal('requestHelper', $this['request.helper']);
 
         $viewData = array_merge(array(
             'alerts' => $this['alerts']->getAll()

@@ -14,7 +14,7 @@ $app['todo.controller'] = function () use ($app) {
     return new Legacy\Controller\Todo($app, $app['todo.repository']);
 };
 
-$app['requestHelper'] = function () use ($app) {
+$app['request.helper'] = function () use ($app) {
     return new Legacy\Library\RequestHelper($app['current.request']);
 };
 $app['alerts'] = function () {

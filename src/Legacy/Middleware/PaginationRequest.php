@@ -11,7 +11,7 @@ class PaginationRequest
 
     public function before(Request $request, Application $app)
     {
-        $app['pagination'] = new Pagination($request->query->all(), $app['requestHelper']);
+        $app['pagination'] = new Pagination($request->query->all(), $app['request.helper']);
 
         $app['monolog']->debug('Initializing Pagination:', $app['pagination']->asArray());
     }
