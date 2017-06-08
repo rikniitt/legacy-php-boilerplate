@@ -14,9 +14,9 @@ $app->before([$currentRequest, 'before']);
 //$authenticationMiddleware = new Legacy\Middleware\TokenAuthentication();
 //$jsonMiddleware = new Legacy\Middleware\JSONRequest();
 //$app->post('/api/some-resource', function () use ($app) {
-//    $receivedData = $app['request']->request->all();
-//    $receivedData['receivedContentType'] = $app['request']->headers->get('Content-Type'); // application/json
-//    $receivedData['receivedAuthenticationToken'] = $app['request']->headers->get('X-Authentication-Token');
+//    $receivedData = $app['current.request']->request->all();
+//    $receivedData['receivedContentType'] = $app['current.request']->headers->get('Content-Type'); // application/json
+//    $receivedData['receivedAuthenticationToken'] = $app['current.request']->headers->get('X-Authentication-Token');
 //    $receivedData['info'] = 'This is api endpoint requiring authenctication token on header and accepting a JSON Request Body';
 //    return $app->json($receivedData, 201);
 //})
@@ -25,8 +25,8 @@ $app->before([$currentRequest, 'before']);
 
 //$sessionMiddleware = new Legacy\Middleware\Session();
 //$app->get('/login', function () use ($app) {
-//    $app['request']->getSession()->set('userId', 666);
-//    return sprintf('<h1>User #%d currently logged in</h1>', $app['request']->getSession()->get('userId'));
+//    $app['request.current']->getSession()->set('userId', 666);
+//    return sprintf('<h1>User #%d currently logged in</h1>', $app['current.request']->getSession()->get('userId'));
 //})->before([$sessionMiddleware, 'before']);
 
 //$ipWhitelistMiddleware = new Legacy\Middleware\IPWhitelist();
