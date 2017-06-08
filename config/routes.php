@@ -42,5 +42,6 @@ $app->post('/todo/update/{id}', 'todo.controller:update');
 $app->get('/todo/create', 'todo.controller:create');
 $app->post('/todo/save', 'todo.controller:save');
 $app->get('/todo/{id}', 'todo.controller:show');
-$app->get('/todo', 'todo.controller:index');
+$app->get('/todo', 'todo.controller:index')
+    ->before(array(new Legacy\Middleware\PaginationRequest(), 'before'));
 $app->get('/', 'todo.controller:index');

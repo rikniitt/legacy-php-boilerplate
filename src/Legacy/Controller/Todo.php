@@ -20,7 +20,7 @@ class Todo extends Controller
     public function index()
     {
         return $this->render('todo/index.twig', array(
-            'todos' => $this->repository->findAll()
+            'todos' => $this->repository->findAllPaginated($this->app['pagination'])
         ));
     }
 

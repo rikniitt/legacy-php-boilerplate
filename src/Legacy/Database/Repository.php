@@ -6,6 +6,8 @@ use Legacy\Application;
 use Legacy\Database\Model;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Legacy\Library\Pagination;
+use Doctrine\Common\Collections\Criteria;
 
 abstract class Repository extends EntityRepository
 {
@@ -65,14 +67,61 @@ abstract class Repository extends EntityRepository
         $this->getEntityManager()->clear();
     }
 
-    public function getCount()
+    public function getCount(Criteria $criteria = null)
     {
-        $count = $this->createQueryBuilder('model')
-                      ->select('COUNT(model)')
-                      ->getQuery()
-                      ->getSingleScalarResult();
+        $query = $this->createQueryBuilder('model')
+                      ->select('COUNT(model)');
+
+        if ($criteria) {
+            $query->addCriteria($criteria);
+        }
+
+        $count = $query->getQuery()
+                       ->getSingleScalarResult();
 
         return intval($count);
+    }
+
+    public function getIdentifierField()
+    {
+        return $this->getEntityManager()
+                    ->getClassMetadata($this->modelName)
+                    ->getSingleIdentifierFieldName();
+    }
+
+    public function hasField($field)
+    {
+        return $this->getEntityManager()
+                    ->getClassMetadata($this->modelName)
+                    ->hasField($field);
+    }
+
+    public function findAllPaginated(Pagination $parameters, Criteria $criteria = null)
+    {
+        $parameters->setTotalCount($this->getCount($criteria));
+
+        if (!$criteria) {
+            $criteria = Criteria::create();
+        }
+
+        if ($this->hasField($parameters->sort())) {
+            $field = $parameters->sort();
+        } else {
+            $field = $this->getIdentifierField();
+        }
+
+        $order = $parameters->order();
+        $limit = $parameters->limit();
+        $offset = ($parameters->page() - 1) * $limit;
+
+        $criteria->orderBy(array($field => $order))
+                 ->setFirstResult($offset)
+                 ->setMaxResults($limit);
+
+        $data = $this->matching($criteria);
+        $parameters->setData($data);
+
+        return $data;
     }
 
 }
