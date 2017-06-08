@@ -25,7 +25,7 @@ $app->before([$currentRequest, 'before']);
 
 //$sessionMiddleware = new Legacy\Middleware\Session();
 //$app->get('/login', function () use ($app) {
-//    $app['request.current']->getSession()->set('userId', 666);
+//    $app['current.request']->getSession()->set('userId', 666);
 //    return sprintf('<h1>User #%d currently logged in</h1>', $app['current.request']->getSession()->get('userId'));
 //})->before([$sessionMiddleware, 'before']);
 
