@@ -8,6 +8,9 @@
  * @see: https://silex.sensiolabs.org/index.php/doc/2.0/middlewares.html
  */
 
+$currentRequest = New Legacy\Middleware\BindCurrentRequestToApplication();
+$app->before([$currentRequest, 'before']);
+
 //$authenticationMiddleware = new Legacy\Middleware\TokenAuthentication();
 //$jsonMiddleware = new Legacy\Middleware\JSONRequest();
 //$app->post('/api/some-resource', function () use ($app) {
@@ -17,24 +20,24 @@
 //    $receivedData['info'] = 'This is api endpoint requiring authenctication token on header and accepting a JSON Request Body';
 //    return $app->json($receivedData, 201);
 //})
-//->before(array($authenticationMiddleware, 'before'))
-//->before(array($jsonMiddleware, 'before'));
+//->before([$authenticationMiddleware, 'before'])
+//->before([$jsonMiddleware, 'before']);
 
 //$sessionMiddleware = new Legacy\Middleware\Session();
 //$app->get('/login', function () use ($app) {
 //    $app['request']->getSession()->set('userId', 666);
 //    return sprintf('<h1>User #%d currently logged in</h1>', $app['request']->getSession()->get('userId'));
-//})->before(array($sessionMiddleware, 'before'));
+//})->before([$sessionMiddleware, 'before']);
 
 //$ipWhitelistMiddleware = new Legacy\Middleware\IPWhitelist();
 //$app->get('/intranetz', function () {
 //    return '<h1>Company wide announcementz here!</h1>';
-//})->before(array($ipWhitelistMiddleware, 'before'));
+//})->before([$ipWhitelistMiddleware, 'before']);
 
 //$basicAuthMiddleware = new Legacy\Middleware\HttpBasicAuthentication();
 //$app->get('/admin', function () {
 //    return '<h1>Administrator area!</h1>';
-//})->before(array($basicAuthMiddleware, 'before'));
+//})->before([$basicAuthMiddleware, 'before']);
 
 $app->get('/todo/delete/{id}', 'todo.controller:delete');
 $app->get('/todo/edit/{id}', 'todo.controller:edit');
@@ -44,7 +47,7 @@ $app->post('/todo/save', 'todo.controller:save');
 $app->get('/todo/{todo}', 'todo.controller:show')
     ->convert('todo', 'todo.repository:convert');
 $app->get('/todo', 'todo.controller:index')
-    ->before(array(new Legacy\Middleware\PaginationRequest(), 'before'));
+    ->before([new Legacy\Middleware\PaginationRequest(), 'before']);
 $app->get('/', function() {
     return new Symfony\Component\HttpFoundation\RedirectResponse('/todo');
 });

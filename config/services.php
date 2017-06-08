@@ -15,11 +15,11 @@ $app['todo.controller'] = function () use ($app) {
 };
 
 $app['requestHelper'] = function () use ($app) {
-    return new Legacy\Library\RequestHelper($app['request']);
+    return new Legacy\Library\RequestHelper($app['current.request']);
 };
 $app['alerts'] = function () {
     return new Legacy\Library\Alerts\Container();
 };
 $app['flash.alerts'] = function () use ($app) {
-    return new Legacy\Library\Alerts\FlashContainer($app['request']->getSession());
+    return new Legacy\Library\Alerts\FlashContainer($app['current.request']->getSession());
 };
