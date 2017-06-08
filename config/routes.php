@@ -4,8 +4,8 @@
  * Register all application routes and
  * middlewares to $app.
  *
- * @see: https://silex.sensiolabs.org/index.php/doc/1.3/usage.html#routing
- * @see: https://silex.sensiolabs.org/index.php/doc/1.3/middlewares.html
+ * @see: https://silex.sensiolabs.org/index.php/doc/2.0/usage.html#routing
+ * @see: https://silex.sensiolabs.org/index.php/doc/2.0/middlewares.html
  */
 
 //$authenticationMiddleware = new Legacy\Middleware\TokenAuthentication();

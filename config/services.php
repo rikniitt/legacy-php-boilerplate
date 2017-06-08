@@ -4,7 +4,7 @@
  * Do all your application service bindings
  * to $app here.
  *
- * @see: https://silex.sensiolabs.org/index.php/doc/1.3/services.html
+ * @see: https://silex.sensiolabs.org/index.php/doc/2.0/services.html
  */
 
 $app['todo.repository'] = $app->share(function () use ($app) {

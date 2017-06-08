@@ -1,11 +1,11 @@
 <?php
 
 /**
- * ini_set('display_errors', 1);
- * ini_set('display_startup_errors', 1);
- * error_reporting(E_ALL);
+ * Create new Legacy (Silex) application
+ * and configure log, db and etc.
+ *
+ * @see: https://silex.sensiolabs.org/doc/2.0/providers/#built-in-service-providers
  */
-
 
 // Define path constans.
 define('ROOT_DIR', realpath(__DIR__ . '/../'));
@@ -16,9 +16,9 @@ define('MODEL_DIR', ROOT_DIR . '/src/Legacy/Database/Model');
 // Require composer dependencies.
 $composerLoader = require ROOT_DIR . '/vendor/autoload.php';
 
-// Load the settings from config file. (Throws if file not exists.)
-$loader = new josegonzalez\Dotenv\Loader(ROOT_DIR . '/config/config.file');
-$settings = $loader->parse()->toArray();
+// Load the settings from config file.
+$parser = new M1\Env\Parser(file_get_contents(ROOT_DIR . '/config/config.file'));
+$settings = $parser->getContent();
 
 // Set php settings
 date_default_timezone_set($settings['TIMEZONE']);
@@ -29,71 +29,71 @@ $app = new Legacy\Application($settings);
 
 // Create logger.
 $logfile = date('Ymd') . '_' . $settings['LOG_NAME'] . '.log';
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
+$app->register(new Silex\Provider\MonologServiceProvider(), [
     'monolog.logfile' => LOG_DIR . '/' . $logfile,
     'monolog.level' => $settings['LOG_LEVEL'],
     'monolog.name' => $settings['LOG_NAME'],
     'monolog.permission' => 0664
-));
+]);
 
 // Register doctrine dbal.
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'dbs.options' => array(
-        'myWebApplication' => array(
+$app->register(new Silex\Provider\DoctrineServiceProvider(), [
+    'dbs.options' => [
+        'myWebApplication' => [
             'driver' => 'pdo_mysql',
             'host' => $settings['DB_HOST'],
             'dbname' => $settings['DB_NAME'],
             'user' => $settings['DB_USER'],
             'password' => $settings['DB_PASS'],
             'charset' => 'utf8'
-        )
+        ]
         /* Example other connection
-        'otherDb' => array(
+        'otherDb' => [
             'driver' => 'pdo_sqlite',
             'path' => '/some/path/to/other.db'
-        ) */
-    )
-));
+        ] */
+    ]
+]);
 // Bind custom logger to Doctrine DBAL.
 $app['db.config']->setSQLLogger(new Legacy\Database\Doctrine\SqlLogger($app['monolog']));
 // Register doctrine orm.
-$app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), array(
+$app->register(new Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), [
     'orm.ems.default' => 'myWebApplication',
-    'orm.ems.options' => array(
-        'myWebApplication' => array(
+    'orm.ems.options' => [
+        'myWebApplication' => [
             'connection' => 'myWebApplication',
-            'mappings' => array(
-                array(
+            'mappings' => [
+                [
                     'type' => 'annotation',
                     'namespace' => 'Legacy\Database\Model',
                     'path' => MODEL_DIR,
                     'use_simple_annotation_reader' => false // using @ORM\Entity instead of plain @Entity
-                )
-            )
-        )
+                ]
+            ]
+        ]
         /*
-        'otherDb' => array(
+        'otherDb' => [
             'connection' => 'otherDb',
-            'mappings' => array(
-                array(
+            'mappings' => [
+                [
                     'type' => 'annotation',
                     'namespace' => 'Legacy\Database\Model',
                     'path' => MODEL_DIR,
                     'use_simple_annotation_reader' => false // using @ORM\Entity instead of plain @Entity
-                )
-            )
-        ) */
-    )
-));
+                ]
+            ]
+        ] */
+    ]
+]);
 
 // Register twig engine.
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
+$app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => VIEW_DIR,
-));
+]);
 
 // Register whoops debugging provider
 if ($settings['DEBUG']) {
-    $app->register(new Whoops\Provider\Silex\WhoopsServiceProvider);
+    $app->register(new WhoopsSilex\WhoopsServiceProvider());
 }
 
 // Register silex controller provider
