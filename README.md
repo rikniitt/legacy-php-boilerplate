@@ -15,7 +15,7 @@ Boilerplate utilizes following [composer](https://getcomposer.org/doc/) [package
  * [Twitter Bootstrap](http://getbootstrap.com/css/) frontend framework.
 
 #### Development dependencies
- * [Phing](http://www.phing.info/trac/wiki/Users/Documentation) as task runner.
+ * [Robo](http://robo.li/getting-started/) as task runner.
  * [PHPUnit](https://phpunit.de/manual/current/en/phpunit-book.html) as test suite.
  * [CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer/wiki) for checking coding style.
  * [PsySH](https://github.com/bobthecow/psysh) as PHP REPL.
