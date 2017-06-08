@@ -14,6 +14,28 @@ class RoboFile extends \Robo\Tasks
         $this->app = require_once __DIR__ . '/config/bootstrap.php';
     }
 
+    /**
+     * Run PsySH PHP REPL.
+     */
+    public function appConsole()
+    {
+        $this->say('Starting PsySH.');
+        $this->say('Use $app to access the Legacy\Application.');
+
+        $cmd = 'php '
+             . ROOT_DIR
+             . '/vendor/bin/psysh '
+             . ROOT_DIR
+             . '/config/bootstrap.php';
+
+        $this->io()->comment($cmd);
+
+        // Symfony process is dependency of Robo
+        $process = new Symfony\Component\Process\Process($cmd);
+        $process->setTty(true);
+        $process->run();
+    }
+
      /**
      * Install project
      */
@@ -188,6 +210,26 @@ class RoboFile extends \Robo\Tasks
     }
 
     /**
+     * Open MySQL console.
+     */
+    public function dbConsole()
+    {
+        $this->say('Opening MySQL console.');
+
+        $cmd = 'mysql '
+             . ' -h' . $this->app->getSetting('DB_HOST')
+             . ' -u' . $this->app->getSetting('DB_USER')
+             . ' -p' . $this->app->getSetting('DB_PASS')
+             . ' --show-warnings'
+             . ' ' . $this->app->getSetting('DB_NAME');
+
+        // Symfony process is dependency of Robo
+        $process = new Symfony\Component\Process\Process($cmd);
+        $process->setTty(true);
+        $process->run();
+    }
+
+    /**
      * Perform syntax check of sourcecode files with php lint
      */
     public function lint()
@@ -272,6 +314,23 @@ class RoboFile extends \Robo\Tasks
 
         file_put_contents($timestampFile, time());
     }
+
+    /**
+     * Start development server
+     */
+    public function serve($port = 8000, $public = false)
+    {
+        $server = $this->taskServer($port);
+
+        if ($public) {
+            $server->host('0.0.0.0');
+        } else {
+            $server->host('localhost');
+        }
+
+        $server->dir(ROOT_DIR . '/public')->run();
+    }
+
 
     /**
      * Run all unit tests with PHPUnit

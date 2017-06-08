@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-source ./config/config.file
-mysql -h"$DB_HOST" -u"$DB_USER" -p"$DB_PASS" --show-warnings $DB_NAME
