@@ -51,6 +51,56 @@ class RoboFile extends \Robo\Tasks
         $this->assetsPublish();
     }
 
+    /**
+     * Rename application namespace
+     */
+    public function appRename()
+    {
+        $this->io()->warning('You should check the results manually after this...');
+
+        $current = str_replace('\\Application', '', get_class($this->app));
+        $this->say('Current name is ' . $current);
+
+        $new = $this->ask('New namespace');
+
+        if (!$this->confirm('Change it to ' . $new . '?')) {
+            $this->say('Doing nothing.');
+            return 0;
+        }
+
+        $files = array_merge(
+            $this->glob(ROOT_DIR . '/src/*.php'),
+            $this->glob(ROOT_DIR . '/tests/*.php'),
+            $this->glob(ROOT_DIR . '/config/*.php')
+        );
+
+        foreach ($files as $file) {
+            $this->taskReplaceInFile($file)
+                 ->from($current)
+                 ->to($new)
+                 ->run();
+        }
+
+
+        $nspaceToPath = function ($str) {
+            return str_replace('\\', '/', $str);
+        };
+
+        $this->taskFilesystemStack()
+             ->rename(
+                ROOT_DIR . '/src/' . $nspaceToPath($current),
+                ROOT_DIR . '/src/' . $nspaceToPath($new)
+             )
+             ->run();
+
+        $this->taskComposerDumpAutoload()->run();
+
+        $this->taskReplaceInFile(__FILE__)
+             ->from($current)
+             ->to($new)
+             ->run();
+    }
+
      /**
      * Print application routes
      */
