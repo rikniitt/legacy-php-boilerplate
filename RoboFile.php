@@ -43,8 +43,8 @@ class RoboFile extends \Robo\Tasks
     {
         $this->taskFilesystemStack()
              ->copy(
-                ROOT_DIR . '/config/config.file.example',
-                ROOT_DIR . '/config/config.file'
+                 ROOT_DIR . '/config/config.file.example',
+                 ROOT_DIR . '/config/config.file'
              )
              ->run();
 
@@ -87,8 +87,8 @@ class RoboFile extends \Robo\Tasks
 
         $this->taskFilesystemStack()
              ->rename(
-                ROOT_DIR . '/src/' . $nspaceToPath($current),
-                ROOT_DIR . '/src/' . $nspaceToPath($new)
+                 ROOT_DIR . '/src/' . $nspaceToPath($current),
+                 ROOT_DIR . '/src/' . $nspaceToPath($new)
              )
              ->run();
 
@@ -145,7 +145,7 @@ class RoboFile extends \Robo\Tasks
      *
      * @param string $month Optional month in format Ym.
      */
-    public function archive_logs($month = null)
+    public function archivelogs($month = null)
     {
         $logsDir = ROOT_DIR . '/logs';
 
@@ -165,6 +165,7 @@ class RoboFile extends \Robo\Tasks
                     $months[] = $captured[1];
                 }
             }
+
             if (!$months) {
                 $this->say('No log files found');
             }
@@ -175,7 +176,6 @@ class RoboFile extends \Robo\Tasks
             }
         }
     }
-
 
     /**
      * Publish assets installed via composer
@@ -200,7 +200,6 @@ class RoboFile extends \Robo\Tasks
         ])->run();
     }
 
-
     /**
      * Build project
      */
@@ -213,7 +212,7 @@ class RoboFile extends \Robo\Tasks
     /**
      * Find coding standard violations using PHP CodeSniffer
      */
-    public function check_style()
+    public function checkstyle()
     {
         $this->say('Running PHP CodeSniffer to check coding standard violations.');
 
@@ -223,6 +222,7 @@ class RoboFile extends \Robo\Tasks
              ->option('standard', ROOT_DIR . '/phpcs.xml', '=')
              ->arg(ROOT_DIR . '/src')
              ->arg(ROOT_DIR . '/tests')
+             ->arg(__FILE__)
              ->run();
     }
 
@@ -242,6 +242,7 @@ class RoboFile extends \Robo\Tasks
         if ($name) {
             $package .= '_' . $name;
         }
+
         $package .= '_build.zip';
 
         $this->taskPack($package)
@@ -293,8 +294,7 @@ class RoboFile extends \Robo\Tasks
             $this->glob(ROOT_DIR . '/config/*.php')
         );
 
-        foreach ($files as $f)
-        {
+        foreach ($files as $f) {
             $lint->exec('/usr/bin/php -l ' . $f);
         }
 
@@ -380,7 +380,6 @@ class RoboFile extends \Robo\Tasks
         $server->dir(ROOT_DIR . '/public')->run();
     }
 
-
     /**
      * Run all unit tests with PHPUnit
      */
@@ -398,8 +397,7 @@ class RoboFile extends \Robo\Tasks
     {
         $files = glob($pattern);
 
-        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir)
-        {
+        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
             $files = array_merge($files, $this->glob($dir . '/' . basename($pattern), $exclude));
         }
 
@@ -414,7 +412,7 @@ class RoboFile extends \Robo\Tasks
         $this->say("Compressing logs from $dir and $month to $zipFile");
 
         if (count($logFiles) === 0) {
-            $this->say(" ... no log files found.");
+            $this->say(' ... no log files found.');
             return;
         }
 
