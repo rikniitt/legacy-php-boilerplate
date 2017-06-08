@@ -5,6 +5,7 @@ namespace Legacy\Controller;
 use Legacy\Controller;
 use Legacy\Application;
 use Legacy\Database\Repository;
+use Legacy\Database\Model\Todo as TodoModel;
 use Symfony\Component\HttpFoundation\Request;
 
 class Todo extends Controller
@@ -24,17 +25,14 @@ class Todo extends Controller
         ));
     }
 
-    public function show($id)
+    /**
+     * Example usage of route variable conversion
+     */
+    public function show(TodoModel $todo)
     {
-        $todo = $this->repository->find($id);
-
-        if ($todo) {
-            return $this->render('todo/show.twig', array(
-                'todo' => $todo
-            ));
-        } else {
-            $this->app->abort(404, sprintf('Could not find todo with id %d.', $id));
-        }
+        return $this->render('todo/show.twig', array(
+            'todo' => $todo
+        ));
     }
 
     public function delete($id)

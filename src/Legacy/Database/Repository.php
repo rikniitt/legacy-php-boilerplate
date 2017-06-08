@@ -4,10 +4,11 @@ namespace Legacy\Database;
 
 use Legacy\Application;
 use Legacy\Database\Model;
+use Legacy\Library\Pagination;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Legacy\Library\Pagination;
 use Doctrine\Common\Collections\Criteria;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class Repository extends EntityRepository
 {
@@ -16,6 +17,9 @@ abstract class Repository extends EntityRepository
 
     // Which connection.
     protected $entityManager = 'not-defined';
+
+    // Part of error message in convert method.
+    protected $entityNotFoundName = 'Entity';
 
     protected $app;
 
@@ -122,6 +126,23 @@ abstract class Repository extends EntityRepository
         $parameters->setData($data);
 
         return $data;
+    }
+
+    public function convert($id)
+    {
+        $entity = $this->find($id);
+
+        if (!$entity) {
+            $message = sprintf(
+                '%s #%s was not found,',
+                $this->entityNotFoundName,
+                $id
+            );
+
+            throw new NotFoundHttpException($message);
+        }
+
+        return $entity;
     }
 
 }
