@@ -4,6 +4,9 @@
     <!-- Created with http://edorian.github.io/php-coding-standard-generator/#phpcs -->
     <description>Legacy PHP coding standard.</description>
 
+    <!-- Enforce new php array shorthand [] syntax. -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
     <!-- No unused function parameters are allowed. -->
     <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter" />
 

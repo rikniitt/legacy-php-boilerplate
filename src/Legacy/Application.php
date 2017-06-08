@@ -19,13 +19,13 @@ class Application extends SilexApplication
         $this['debug'] = $settings['DEBUG'];
     }
 
-    public function render($view, $data = array())
+    public function render($view, $data = [])
     {
         $this['twig']->addGlobal('requestHelper', $this['request.helper']);
 
-        $viewData = array_merge(array(
+        $viewData = array_merge([
             'alerts' => $this['alerts']->getAll()
-        ), $data);
+        ], $data);
 
         return $this['twig']->render($view, $viewData);
     }
@@ -35,16 +35,16 @@ class Application extends SilexApplication
         if ($code === 404) {
             $uri = $this['current.request']->getRequestUri();
             $msg = sprintf('Could not find page "%s" you were looking for.', $uri);
-            $template = $this->render('error/404.twig', array(
+            $template = $this->render('error/404.twig', [
                 'message' => $msg,
                 'code' => 404
-            ));
+            ]);
         } else {
             $msg = ($this['debug']) ? $e->getMessage() : 'Something went wrong.';
-            $template = $this->render('error/generic.twig', array(
+            $template = $this->render('error/generic.twig', [
                 'message' => $msg,
                 'code' => 500
-            ));
+            ]);
         }
 
         $this['monolog']->debug('Responding to error with: ' . $template);

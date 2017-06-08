@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class IPWhitelist
 {
-    private $ipWhitelist = array(
+    private $ipWhitelist = [
         '127.0.0.1'
-    );
+    ];
 
     public function before(Request $request, Application $app)
     {

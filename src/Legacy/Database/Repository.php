@@ -118,7 +118,7 @@ abstract class Repository extends EntityRepository
         $limit = $parameters->limit();
         $offset = ($parameters->page() - 1) * $limit;
 
-        $criteria->orderBy(array($field => $order))
+        $criteria->orderBy([$field => $order])
                  ->setFirstResult($offset)
                  ->setMaxResults($limit);
 

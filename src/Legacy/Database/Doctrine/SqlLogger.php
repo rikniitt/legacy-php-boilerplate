@@ -20,7 +20,7 @@ class SqlLogger implements DoctrineLoggingInterface
      */
     public function startQuery($sql, array $params = null, array $types = null)
     {
-        $this->logger->info($sql, array($params, $types));
+        $this->logger->info($sql, [$params, $types]);
     }
 
     /**

@@ -12,12 +12,12 @@ class Pagination
     private $order;
     private $data;
     private $totalCount;
-    private $defaults = array(
+    private $defaults = [
         'page' => 1,
         'limit' => 25,
         'sort' => '',
         'order' => 'ASC'
-    );
+    ];
     private $wasInQuery;
     private $reqHelper;
 
@@ -36,12 +36,12 @@ class Pagination
         $this->sort = (string) $params['sort'];
         $this->order = strtoupper((string) $params['order']);
 
-        if (!in_array($this->order, array('ASC', 'DESC'))) {
+        if (!in_array($this->order, ['ASC', 'DESC'])) {
             $this->order = 'ASC';
         }
 
         // These gets set by repository.
-        $this->data = array();
+        $this->data = [];
         $this->totalCount = -1;
     }
 
@@ -49,7 +49,7 @@ class Pagination
     {
         $findSome = false;
         $fields = array_keys($this->defaults);
-        $this->wasInQuery = array();
+        $this->wasInQuery = [];
 
         foreach ($fields as $key) {
             $keyExistInParameters = array_key_exists($key, $parameters);
@@ -161,7 +161,7 @@ class Pagination
         $to = min(($this->page() + 2), max(1, $this->lastPageNumber()));
 
         if ($from === $to) {
-            return array();
+            return [];
         } else {
             return range($from, $to);
         }
@@ -170,12 +170,12 @@ class Pagination
     public function prevPageUrl()
     {
         if ($this->hasPrev()) {
-            return $this->reqHelper->currentUrl(array(
+            return $this->reqHelper->currentUrl([
                 'page' => $this->page() - 1,
                 'limit' => $this->limit(),
                 'sort' => $this->sort(),
                 'order' => $this->order()
-            ));
+            ]);
         }
 
         return 'javascript:void(0)';
@@ -184,12 +184,12 @@ class Pagination
     public function nextPageUrl()
     {
         if ($this->hasNext()) {
-            return $this->reqHelper->currentUrl(array(
+            return $this->reqHelper->currentUrl([
                 'page' => $this->page() + 1,
                 'limit' => $this->limit(),
                 'sort' => $this->sort(),
                 'order' => $this->order()
-            ));
+            ]);
         }
 
         return 'javascript:void(0)';
@@ -200,18 +200,18 @@ class Pagination
         if ($number == $this->page()) {
             return 'javascript:void(0)';
         } else {
-            return $this->reqHelper->currentUrl(array(
+            return $this->reqHelper->currentUrl([
                 'page' => $number,
                 'limit' => $this->limit(),
                 'sort' => $this->sort(),
                 'order' => $this->order()
-            ));
+            ]);
         }
     }
 
     public function asArray()
     {
-        return array(
+        return [
             'usePagination' => $this->usePagination,
             'page' => $this->page,
             'limit' => $this->limit,
@@ -219,7 +219,7 @@ class Pagination
             'order' => $this->order,
             'data' => $this->data,
             'totalCount' => $this->totalCount
-        );
+        ];
     }
 
 }

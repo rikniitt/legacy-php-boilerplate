@@ -18,9 +18,9 @@ class HttpBasicAuthentication
      *
      * @var array
      */
-    private $authorizedUsers = array(
+    private $authorizedUsers = [
         'admin' => '$1$PJotY6fY$Sk.eRD/LEhAKHWXAMUutu/'
-    );
+    ];
 
     private $realm = 'Secure Realm';
 

@@ -15,7 +15,7 @@ abstract class Controller
         $this->app = $app;
     }
 
-    protected function render($view, $data = array())
+    protected function render($view, $data = [])
     {
         $template = $this->app->render($view, $data);
         return new Response($template, $this->statusCode);

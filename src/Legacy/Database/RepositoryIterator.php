@@ -44,8 +44,8 @@ class RepositoryIterator implements Iterator, Countable, ArrayAccess
         $this->repository->freeMemory();
 
         $result = $this->repository->findBy(
-            array(),
-            array(),
+            [],
+            [],
             1,
             $this->currentOffset
         );

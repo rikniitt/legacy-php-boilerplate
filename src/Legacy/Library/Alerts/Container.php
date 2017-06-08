@@ -7,16 +7,16 @@ class Container
 
     protected $alerts;
 
-    protected $levels = array(
+    protected $levels = [
         'success',
         'info',
         'warning',
         'danger'
-    );
+    ];
 
     public function __construct()
     {
-        $this->alerts = array();
+        $this->alerts = [];
     }
 
     public function getAll()
@@ -30,10 +30,10 @@ class Container
             $level = 'info';
         }
 
-        $this->alerts[] = array(
+        $this->alerts[] = [
             'level' => $level,
             'message' => $message
-        );
+        ];
     }
 
 }
