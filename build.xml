@@ -19,6 +19,62 @@
     </target>
 
     <!-- Main targets: -->
+    <target name="app-rename" description="Rename application namespace.">
+        <echo msg="This is experimental. You should verify the results." level="warning" />
+
+        <input propertyname="currentnamespace" defaultValue="Legacy">Current namespace of application</input>
+        <input propertyname="newnamespace" defaultValue="App">New namespace</input>
+
+        <echo msg="Going to rename ${currentnamespace} => ${newnamespace}" />
+
+        <propertyregex property="searchnamespace"
+            subject="${currentnamespace}"
+            pattern="\\"
+            replace="\\\\" />
+        <propertyregex property="searchnamespace"
+            override="true"
+            subject="${searchnamespace}"
+            pattern="^(.*)$"
+            replace="$1\\\\" />
+
+        <propertyregex property="replacenamesspace"
+            subject="${newnamespace}"
+            pattern="\\"
+            replace="\\\\" />
+        <propertyregex property="replacenamesspace"
+            override="true"
+            subject="${replacenamesspace}"
+            pattern="^(.*)$"
+            replace="$1\\\\" />
+
+        <reflexive>
+            <fileset dir=".">
+                <patternset>
+                    <include name="src/**/*.php" />
+                    <include name="tests/**/*.php" />
+                    <include name="config/**/*.php" />
+                </patternset>
+            </fileset>
+            <filterchain>
+                <replaceregexp>
+                    <regexp pattern="${currentnamespace}" replace="${newnamespace}" />
+                </replaceregexp>
+            </filterchain>
+        </reflexive>
+
+        <propertyregex property="searchpath"
+            subject="${currentnamespace}"
+            pattern="\\"
+            replace="/" />
+        <propertyregex property="replacepath"
+            subject="${newnamespace}"
+            pattern="\\"
+            replace="/" />
+
+        <echo msg="Renaming dir src/${searchpath} => src/${replacepath}" />
+        <move file="./src/${searchpath}" tofile="./src/${replacepath}" includeemptydirs="true" />
+    </target>
+
     <target name="archive-logs" description="Archives all log files older than this month.">
         <!-- Uses custom adhoc task defined below. -->
         <log-archive dir="${absolutebasedir}/logs" />
