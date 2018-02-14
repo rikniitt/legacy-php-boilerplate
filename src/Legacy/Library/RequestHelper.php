@@ -50,4 +50,9 @@ class RequestHelper
         return $url . '?' . http_build_query($params);
     }
 
+    public function currentQueryParams()
+    {
+        return $this->request->query->all();
+    }
+
 }

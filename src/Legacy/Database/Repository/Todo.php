@@ -9,4 +9,9 @@ class Todo extends Repository
     protected $modelName = 'Legacy\Database\Model\Todo';
 
     protected $entityManager = 'myWebApplication';
+
+    protected $searchFields = array(
+        'name',
+        'content'
+    );
 }
