@@ -8,6 +8,7 @@ use Legacy\Library\Pagination;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Common\Collections\Criteria;
+use Doctrine\Common\Collections\Expr\CompositeExpression;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class Repository extends EntityRepository
@@ -20,6 +21,9 @@ abstract class Repository extends EntityRepository
 
     // Part of error message in convert method.
     protected $entityNotFoundName = 'Entity';
+
+    // List of field names to match search
+    protected $searchFields = [];
 
     protected $app;
 
@@ -102,11 +106,26 @@ abstract class Repository extends EntityRepository
 
     public function findAllPaginated(Pagination $parameters, Criteria $criteria = null)
     {
-        $parameters->setTotalCount($this->getCount($criteria));
-
         if (!$criteria) {
             $criteria = Criteria::create();
         }
+
+        if ($parameters->q() !== '' && count($this->searchFields) > 0) {
+            $likeExpressions = [];
+            foreach ($this->searchFields as $field) {
+                $search = addcslashes(mb_strtolower($parameters->q()), '%_');
+                $likeExpressions[] = $criteria->expr()->contains($field, $search);
+            }
+
+            $criteria->andWhere(
+                new CompositeExpression(
+                    CompositeExpression::TYPE_OR,
+                    $likeExpressions
+                )
+            );
+        }
+
+        $parameters->setTotalCount($this->getCount($criteria));
 
         if ($this->hasField($parameters->sort())) {
             $field = $parameters->sort();

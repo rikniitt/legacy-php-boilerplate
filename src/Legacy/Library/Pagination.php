@@ -10,13 +10,15 @@ class Pagination
     private $limit;
     private $sort;
     private $order;
+    private $q;
     private $data;
     private $totalCount;
     private $defaults = [
         'page' => 1,
         'limit' => 25,
         'sort' => '',
-        'order' => 'ASC'
+        'order' => 'ASC',
+        'q' => ''
     ];
     private $wasInQuery;
     private $reqHelper;
@@ -35,6 +37,7 @@ class Pagination
         $this->limit = abs((int) $params['limit']);
         $this->sort = (string) $params['sort'];
         $this->order = strtoupper((string) $params['order']);
+        $this->q = str_replace(['%', '_'], '', (string) $params['q']);
 
         if (!in_array($this->order, ['ASC', 'DESC'])) {
             $this->order = 'ASC';
@@ -106,6 +109,11 @@ class Pagination
         return $this->order;
     }
 
+    public function q()
+    {
+        return $this->q;
+    }
+
     public function setData($data)
     {
         $this->data = $data;
@@ -170,29 +178,19 @@ class Pagination
     public function prevPageUrl()
     {
         if ($this->hasPrev()) {
-            return $this->reqHelper->currentUrl([
-                'page' => $this->page() - 1,
-                'limit' => $this->limit(),
-                'sort' => $this->sort(),
-                'order' => $this->order()
-            ]);
+            return $this->pageUrl($this->page() - 1);
+        } else {
+            return 'javascript:void(0)';
         }
-
-        return 'javascript:void(0)';
     }
 
     public function nextPageUrl()
     {
         if ($this->hasNext()) {
-            return $this->reqHelper->currentUrl([
-                'page' => $this->page() + 1,
-                'limit' => $this->limit(),
-                'sort' => $this->sort(),
-                'order' => $this->order()
-            ]);
+            return $this->pageUrl($this->page() + 1);
+        } else {
+            return 'javascript:void(0)';
         }
-
-        return 'javascript:void(0)';
     }
 
     public function pageUrl($number)
@@ -200,13 +198,51 @@ class Pagination
         if ($number == $this->page()) {
             return 'javascript:void(0)';
         } else {
-            return $this->reqHelper->currentUrl([
+            $params = [
                 'page' => $number,
                 'limit' => $this->limit(),
                 'sort' => $this->sort(),
-                'order' => $this->order()
-            ]);
+                'order' => $this->order(),
+                'q' => $this->q()
+            ];
+
+            return $this->reqHelper->currentUrl($params);
         }
+    }
+
+    public function searchUrl()
+    {
+        return $this->reqHelper->currentUrl();
+    }
+
+    public function searchHiddenFields()
+    {
+        $all = array_merge(
+            $this->reqHelper->currentQueryParams(),
+            [
+                'page' => 1,
+                'limit' => $this->limit(),
+                'sort' => $this->sort(),
+                'order' => $this->order()
+            ]
+        );
+
+        if (isset($all['q'])) {
+            unset($all['q']);
+        }
+
+        return $all;
+    }
+
+    public function clearSearchUrl()
+    {
+        return $this->reqHelper->currentUrl([
+            'page' => 1,
+            'limit' => $this->limit(),
+            'sort' => $this->sort(),
+            'order' => $this->order(),
+            'q' => ''
+        ]);
     }
 
     public function asArray()
@@ -217,6 +253,7 @@ class Pagination
             'limit' => $this->limit,
             'sort' => $this->sort,
             'order' => $this->order,
+            'q' => $this->q,
             'data' => $this->data,
             'totalCount' => $this->totalCount
         ];
