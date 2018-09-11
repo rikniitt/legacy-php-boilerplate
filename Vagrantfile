@@ -30,6 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Setup apache, mysql and php
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
+    apt-get install -y --only-upgrade ca-certificates libssl1.0.0 libcurl3-gnutls libgcrypt11 libss2
     debconf-set-selections <<< "mysql-server mysql-server/root_password password #{box_config[:mysql_root_password]}"
     debconf-set-selections <<< "mysql-server mysql-server/root_password_again password #{box_config[:mysql_root_password]}"
     apt-get install -y curl apache2 libapache2-mod-php5 php5-curl php5-mcrypt mysql-server libapache2-mod-auth-mysql php5-mysql
