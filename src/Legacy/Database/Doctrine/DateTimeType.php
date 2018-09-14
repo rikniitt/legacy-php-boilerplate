@@ -28,10 +28,12 @@ class DateTimeType extends DoctrineDateTimeType
         }
 
         /**
-         * Database, which we are working with, contains many datetime columns
+         * Some legacy databases use datetime columns
          * with '0000-00-00 00:00:00' as default value.
-         * PHP DateTime object created with it will be set to date
-         * '-0001-11-30 00:00:01'.
+         * It is allowed SQL datetime value for some databases,
+         * but not for PHP DateTime object.
+         * PHP DateTime object created with that string will
+         * set '-0001-11-30 00:00:01' as it's value.
          * This should be probably treated as "value missing"
          * rather than "proper value".
          */
