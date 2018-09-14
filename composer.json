@@ -10,6 +10,7 @@
         "twig/twig": "1.23.1",
         "monolog/monolog": "1.17.2",
         "josegonzalez/dotenv": "1.0.3",
+        "nesbot/carbon": "1.23.0",
         "twbs/bootstrap": "3.3.6",
         "components/jquery": "2.1.4"
     },

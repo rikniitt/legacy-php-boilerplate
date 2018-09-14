@@ -85,6 +85,8 @@ $app->register(new Dflydev\Silex\Provider\DoctrineOrm\DoctrineOrmServiceProvider
         ) */
     )
 ));
+// Register custom datetime data type.
+Doctrine\DBAL\Types\Type::addType('cdatetime', 'Legacy\Database\Doctrine\DateTimeType');
 
 // Register twig engine.
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
