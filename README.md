@@ -12,6 +12,7 @@ Boilerplate utilizes following [composer](https://getcomposer.org/doc/) [package
  * [Twig](http://twig.sensiolabs.org/documentation) as template engine.
  * [Monolog](https://github.com/Seldaek/monolog) for logging.
  * [m1/env](https://github.com/m1/Env) for loading config files.
+ * [Carbon](https://github.com/briannesbitt/Carbon/tree/1.33.0) for more fluent datetime [API](https://carbon.nesbot.com/docs/)
  * [Twitter Bootstrap](http://getbootstrap.com/css/) frontend framework.
 
 #### Development dependencies
