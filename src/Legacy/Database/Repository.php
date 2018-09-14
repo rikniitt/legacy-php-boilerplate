@@ -164,4 +164,44 @@ abstract class Repository extends EntityRepository
         return $entity;
     }
 
+    /**
+     * Do "plain" SQL insert.
+     *
+     * Execute insert in database which $entityManager
+     * is connected to and table which $modelName maps to.
+     *
+     * Note that this by passes validation and the ORM.
+     * Keys of $data array must be existing column names
+     * on the database table.
+     *
+     * @param array $data Example ['name' => 'John doe', 'age' => 45]
+     * @return integer The number of affected rows.
+     *
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function plainInsert(array $data)
+    {
+        $em = $this->getEntityManager();
+
+        $meta = $em->getClassMetadata($this->modelName);
+        $table = $meta->getTableName();
+
+        // Creates array like 'key' => ':key'
+        $values = array_combine(
+            array_keys($data),
+            array_map(function($key) {
+                return ':' . $key;
+            }, array_keys($data))
+        );
+
+        // Use Doctrine\DBAL\Query\QueryBuilder not orm
+        $qb = $em->getConnection()
+                 ->createQueryBuilder();
+
+        return $qb->insert($table)
+                  ->values($values)
+                  ->setParameters($data)
+                  ->execute();
+    }
+
 }
