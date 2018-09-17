@@ -98,8 +98,10 @@ if ($settings['DEBUG']) {
     $app->register(new Whoops\Provider\Silex\WhoopsServiceProvider);
 }
 
-// Register silex controller provider
-$app->register(new Silex\Provider\ServiceControllerServiceProvider());
+// Register custom controller provider. Supports Controller@method route callbacks
+$app->register(new Legacy\Library\Silex\ServiceControllerServiceProvider());
+// Or register silex controller provider which supports identifier:method route callbacks
+//$app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
 // Register silex session provider
 $app->register(new Silex\Provider\SessionServiceProvider());

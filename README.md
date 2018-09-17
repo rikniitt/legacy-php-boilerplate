@@ -10,6 +10,7 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
  * [Twig](http://twig.sensiolabs.org/documentation) as template engine.
  * [Monolog](https://github.com/Seldaek/monolog) for logging.
  * [PHP Dotenv](https://github.com/josegonzalez/php-dotenv) for loading config files.
+ * [Carbon](https://github.com/briannesbitt/Carbon/tree/1.23.0) for more [fluent](https://carbon.nesbot.com/docs/) datetime API.
  * [Twitter Bootstrap](http://getbootstrap.com/css/) frontend framework.
 
 #### Development dependencies

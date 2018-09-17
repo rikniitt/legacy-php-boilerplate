@@ -4,15 +4,16 @@
  * Do all your application service bindings
  * to $app here.
  *
+ * Service defined with;
+ *  - function() { ... } will return new instance every time
+ *  - $app->share(function() {...}) creates singleton
+ *
  * @see: https://silex.sensiolabs.org/index.php/doc/1.3/services.html
  */
 
-$app['todo.repository'] = $app->share(function () use ($app) {
-    return new Legacy\Database\Repository\Todo($app);
-});
-$app['todo.controller'] = $app->share(function () use ($app) {
-    return new Legacy\Controller\Todo($app, $app['todo.repository']);
-});
+ $app['Legacy\Application'] = $app->share(function () use ($app) {
+    return $app;
+ });
 
 $app['requestHelper'] = $app->share(function () use ($app) {
     return new Legacy\Library\RequestHelper($app['request']);

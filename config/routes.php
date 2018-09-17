@@ -36,14 +36,14 @@
 //    return '<h1>Administrator area!</h1>';
 //})->before(array($basicAuthMiddleware, 'before'));
 
-$app->get('/todo/delete/{id}', 'todo.controller:delete');
-$app->get('/todo/edit/{id}', 'todo.controller:edit');
-$app->post('/todo/update/{id}', 'todo.controller:update');
-$app->get('/todo/create', 'todo.controller:create');
-$app->post('/todo/save', 'todo.controller:save');
-$app->get('/todo/{todo}', 'todo.controller:show')
-    ->convert('todo', 'todo.repository:convert');
-$app->get('/todo', 'todo.controller:index')
+$app->get('/todo/delete/{id}', 'Legacy\Controller\Todo@delete');
+$app->get('/todo/edit/{id}', 'Legacy\Controller\Todo@edit');
+$app->post('/todo/update/{id}', 'Legacy\Controller\Todo@update');
+$app->get('/todo/create', 'Legacy\Controller\Todo@create');
+$app->post('/todo/save', 'Legacy\Controller\Todo@save');
+$app->get('/todo/{todo}', 'Legacy\Controller\Todo@show')
+    ->convert('todo', 'Legacy\Database\Repository\Todo@convert');
+$app->get('/todo', 'Legacy\Controller\Todo@index')
     ->before(array(new Legacy\Middleware\PaginationRequest(), 'before'));
 $app->get('/', function() {
     return new Symfony\Component\HttpFoundation\RedirectResponse('/todo');
