@@ -11,9 +11,15 @@
  * @see: https://silex.sensiolabs.org/index.php/doc/1.3/services.html
  */
 
- $app['Legacy\Application'] = $app->share(function () use ($app) {
+$app['Legacy\Application'] = $app->share(function () use ($app) {
     return $app;
- });
+});
+
+/**
+ * Use $app->resolve('Class\Path') to make container instantiate
+ * object from implicitly bind classes.
+ * @see: Legacy\Application::resolve
+ */
 
 $app['requestHelper'] = $app->share(function () use ($app) {
     return new Legacy\Library\RequestHelper($app['request']);
