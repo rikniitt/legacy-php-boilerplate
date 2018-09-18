@@ -41,13 +41,6 @@ class RoboFile extends \Robo\Tasks
      */
     public function appInstall()
     {
-        $this->taskFilesystemStack()
-             ->copy(
-                 ROOT_DIR . '/config/config.file.example',
-                 ROOT_DIR . '/config/config.file'
-             )
-             ->run();
-
         $this->assetsPublish();
     }
 
@@ -183,6 +176,10 @@ class RoboFile extends \Robo\Tasks
     public function assetsPublish()
     {
         $publicVendorDir = ROOT_DIR . '/public/assets/vendor';
+
+        if (!is_dir($publicVendorDir)) {
+            $this->_mkdir($publicVendorDir);
+        }
 
         $this->say("Cleaning up $publicVendorDir directory.");
         $this->taskCleanDir([$publicVendorDir])->run();

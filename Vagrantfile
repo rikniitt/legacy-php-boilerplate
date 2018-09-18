@@ -32,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     apt-get update
     debconf-set-selections <<< "mysql-server mysql-server/root_password password #{box_config[:mysql_root_password]}"
     debconf-set-selections <<< "mysql-server mysql-server/root_password_again password #{box_config[:mysql_root_password]}"
-    apt-get install -y curl apache2 libapache2-mod-php5 php5-curl php5-mcrypt mysql-server libapache2-mod-auth-mysql php5-mysql
+    apt-get install -y curl zip unzip apache2 libapache2-mod-php5 php5-curl php5-mcrypt mysql-server libapache2-mod-auth-mysql php5-mysql
     echo ServerName $HOSTNAME >> /etc/apache2/apache2.conf
     cat > /etc/apache2/sites-available/001-legacy.conf <<EOL
 <VirtualHost *:80>
@@ -60,7 +60,8 @@ EOL
     cd /vagrant
     curl -sS https://getcomposer.org/installer | php
     php composer.phar install --no-progress --no-suggest --no-interaction --no-ansi
-    ./robo install
+    cp ./config/config.file.example ./config/config.file
+    ./robo app:install
     # Setup db
     sed -i "s/DB_USER='username'/DB_USER='root'/" ./config/config.file
     sed -i "s/DB_PASS='password'/DB_PASS='#{box_config[:mysql_root_password]}'/" ./config/config.file
