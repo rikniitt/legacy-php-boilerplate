@@ -39,4 +39,27 @@ abstract class Model
         return $this->validationErrors;
     }
 
+    public function asDebugArray()
+    {
+        $data = (array) $this;
+        $arra = array();
+
+        /**
+         * Type casting to array causes private member names
+         * to be prepended with null character wrapped object
+         * class path.
+         *   e.g. '\0Your\Namespace\Model\Name\0attributeName'
+         *
+         * http://php.net/manual/en/language.types.array.php#language.types.array.casting
+         *
+         * Try to clean property names.
+         */
+        foreach ($data as $key => $val) {
+            $k = substr($key, strrpos($key, "\0") + 1);
+            $arra[$k] = $val;
+        }
+
+        return $arra;
+    }
+
 }
