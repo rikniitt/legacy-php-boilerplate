@@ -39,7 +39,7 @@ class CallbackResolver extends SilexCallbackResolver
             throw new InvalidArgumentException(sprintf('Service "%s" does not exist.', $service));
         }
 
-        return array($resolved, $method);
+        return [$resolved, $method];
     }
 
 }
