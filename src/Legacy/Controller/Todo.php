@@ -4,7 +4,7 @@ namespace Legacy\Controller;
 
 use Legacy\Controller;
 use Legacy\Application;
-use Legacy\Database\Repository;
+use Legacy\Database\Repository\Todo as Repository;
 use Legacy\Database\Model\Todo as TodoModel;
 use Symfony\Component\HttpFoundation\Request;
 
