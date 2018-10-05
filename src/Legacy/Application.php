@@ -55,9 +55,9 @@ class Application extends SilexApplication
         return new Response($template);
     }
 
-    public function getSetting($key)
+    public function getSetting($key, $default = null)
     {
-        return (isset($this->settings[$key])) ? $this->settings[$key] : null;
+        return (isset($this->settings[$key])) ? $this->settings[$key] : $default;
     }
 
     /**

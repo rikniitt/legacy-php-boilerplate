@@ -8,6 +8,9 @@
  * @see: https://silex.sensiolabs.org/index.php/doc/1.3/middlewares.html
  */
 
+ //$rateLimiter = New Legacy\Middleware\RateLimiter();
+ //$app->before(array($rateLimiter, 'before'));
+
 //$authenticationMiddleware = new Legacy\Middleware\TokenAuthentication();
 //$jsonMiddleware = new Legacy\Middleware\JSONRequest();
 //$app->post('/api/some-resource', function () use ($app) {

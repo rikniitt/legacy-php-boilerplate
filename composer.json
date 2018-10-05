@@ -5,6 +5,7 @@
         "silex/silex": "1.2.5",
         "doctrine/dbal": "2.5.13",
         "doctrine/orm": "2.4.8",
+        "doctrine/cache": "1.5.4",
         "dflydev/doctrine-orm-service-provider": "1.0.7",
         "respect/validation": "0.9.8",
         "twig/twig": "1.23.1",
