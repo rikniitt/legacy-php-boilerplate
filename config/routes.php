@@ -11,6 +11,9 @@
 $currentRequest = New Legacy\Middleware\BindCurrentRequestToApplication();
 $app->before([$currentRequest, 'before'], Legacy\Application::EARLY_EVENT);
 
+//$rateLimiter = New Legacy\Middleware\RateLimiter();
+//$app->before([$rateLimiter, 'before']);
+
 //$authenticationMiddleware = new Legacy\Middleware\TokenAuthentication();
 //$jsonMiddleware = new Legacy\Middleware\JSONRequest();
 //$app->post('/api/some-resource', function () use ($app) {
