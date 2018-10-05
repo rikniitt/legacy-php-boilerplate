@@ -4,11 +4,13 @@ namespace Legacy\Middleware;
 
 use Legacy\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\IpUtils;
 
 class IPWhitelist
 {
     private $ipWhitelist = [
-        '127.0.0.1'
+        '127.0.0.1',
+        '192.168.0.0/24'
     ];
 
     public function before(Request $request, Application $app)
@@ -22,7 +24,7 @@ class IPWhitelist
 
     private function isNotWhitelisted($ipAddress)
     {
-        return !in_array($ipAddress, $this->ipWhitelist);
+        return !IpUtils::checkIp($ipAddress, $this->ipWhitelist);
     }
 
 }
