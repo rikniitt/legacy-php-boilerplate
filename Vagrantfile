@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # accessing "localhost:8080" will access port 80 on the guest machine.
   config.vm.network "forwarded_port", guest: 80, host:8080
 
-  config.vm.synced_folder ".", "/vagrant", owner: "www-data", group: "vagrant"
+  config.vm.synced_folder ".", "/vagrant", owner: "www-data", group: "vagrant", mount_options: ["dmode=775,fmode=664"]
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
