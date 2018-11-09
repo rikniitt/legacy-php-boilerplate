@@ -53,8 +53,8 @@ if [ "$1" = "start-web-services" ]; then\n\
     userid=$( stat -c"%%u" /var/www/legacy )\n\
     getent passwd "$userid" > /dev/null\n\
     if [ "$?" -ne 0 ]; then\n\
-        useradd -u "$userid" "docku-$userid"\n\
-        apache_user="docku-$userid"\n\
+        useradd -u "$userid" "docku$userid"\n\
+        apache_user="docku$userid"\n\
     else\n\
         apache_user=$( getent passwd "$userid" | cut -f1 -d":" )\n\
     fi\n\
@@ -63,8 +63,8 @@ if [ "$1" = "start-web-services" ]; then\n\
     groupid=$( stat -c"%%g" /var/www/legacy )\n\
     getent group "$groupid" > /dev/null\n\
     if [ "$?" -ne 0 ]; then\n\
-        groupadd -g "$groupid" "dockg-$groupid"\n\
-        apache_group="dockg-$groupid"\n\
+        groupadd -g "$groupid" "dockg$groupid"\n\
+        apache_group="dockg$groupid"\n\
     else\n\
         apache_group=$( getent group "$groupid" | cut -f1 -d":" )\n\
     fi\n\
