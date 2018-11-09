@@ -31,6 +31,12 @@ It utilizes following [composer](https://getcomposer.org/doc/) [packages](https:
 
   * `vagrant up`
 
+  Or with [Docker](https://docs.docker.com/get-started/)
+
+  * Build image `docker build --no-cache -t php/legacy:5.3 $PWD`
+  * Run container `docker run --detach --publish 8080:80 --volume $PWD:/var/www/legacy --name legacy_container php/legacy:5.3`
+  * Execute installation script `docker exec legacy_container /usr/bin/docker-install-legacy-project.sh`
+
 
 ## Configuration
 
