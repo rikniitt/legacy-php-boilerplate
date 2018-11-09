@@ -10,17 +10,23 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 *.lnk
+### IDEs
+.vscode/
+nbproject/
+### Env
+.vagrant/
 
 ### Project
 logs/*.log
 logs/*.zip
-vendor/
-composer.phar
 public/assets/vendor/
 config/config.file
 config/migrations/.lastmigrationrun
 build/
-node_modules/
-nbproject/
-.vagrant/
 cache/
+### Composer
+composer.phar
+vendor/
+### Using project dir as COMPOSER_HOME
+keys.*.pub
+.htaccess
